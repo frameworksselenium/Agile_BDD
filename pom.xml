@@ -7,10 +7,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-	<properties>
-		<testng.threadcount>1</testng.threadcount>
-
-	</properties>
    <dependencies>
 
 		<dependency>
@@ -113,16 +109,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M4</version>
 				<configuration>
-					<parallel>true</parallel>
-					<includes>com.open.hotel.runner.TestNGRunner</includes>
-					<systemProperties>
+					<properties>
 						<property>
 							<name>dataproviderthreadcount</name>
 							<value>${testng.threadcount}</value>
 						</property>
-					</systemProperties>
+					</properties>
 				</configuration>
 			</plugin>
 
