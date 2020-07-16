@@ -10,6 +10,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import java.util.HashMap;
+
 public class Search   extends UiUtils {
 	public WebDriver driver = null;
 
@@ -31,24 +33,24 @@ public class Search   extends UiUtils {
 	WebElement AdultRoom;
 	@FindBy(how =How.NAME, using = "Submit")
 	WebElement Submit;
-	@FindBy(how =How.NAME, using = "/html/body/table[2]/tbody/tr[1]/td[1]")
-	WebElement WelcomeText;
+	@FindBy(how =How.NAME, using = "//*[contains(text(),'Select Hotel')]")
+	WebElement SelectHotelText;
 
 
 	public void clickOnSearch() throws Exception {
 		clickElement(Submit,"Submit", this.page);
 	}
 	
-	public void enterRoomSearchInfo()throws Exception {
-		type(Location, "", "Location", this.page);
-		type(NoOfRoom, "", "NoOfRoom", this.page);
-		type(DatepickIn, "", "NoOfRoom", this.page);
-		type(DatepickOut, "", "NoOfRoom", this.page);
-		type(AdultRoom, "", "NoOfRoom", this.page);
+	public void enterRoomSearchInfo(HashMap<String, String> values)throws Exception {
+		type(Location, values.get("Location"), "Location", this.page);
+		type(NoOfRoom, values.get("Number of Rooms"), "NoOfRoom", this.page);
+		type(DatepickIn, values.get("Check In Date"), "DatepickIn", this.page);
+		type(DatepickOut, values.get("Check Out Date"), "DatepickOut", this.page);
+		type(AdultRoom, values.get("Adults per Room"), "AdultRoom", this.page);
 	}
 
 	public void validateHotelRoomSearch() {
-
-		Assert.assertEquals(WelcomeText.getText(), "Welcome to AdactIn Group of Hotels");
+		//String expectedText = SelectHotelText.getText();
+		//Assert.assertEquals(expectedText.getText(), "Select Hotel");
 	}
 }

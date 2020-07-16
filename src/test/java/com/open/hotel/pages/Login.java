@@ -2,7 +2,6 @@ package com.open.hotel.pages;
 
 import com.open.qa.web.uiUtils.UiUtils;
 import com.open.qa.web.webDriverFactory.ManagerDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,13 +12,10 @@ import org.testng.Assert;
 import java.util.concurrent.TimeUnit;
 
 public class Login  extends UiUtils {
+
 	public WebDriver driver = null;
-	public By edt_UserName = By.id("username");
-	public By edt_Password = By.id("password");
-	public By ele_Login = By.id("login");
-	public By ele_WelcomeText = By.xpath("/html/body/table[2]/tbody/tr[1]/td[1]");
-	public By ele_LogOut = By.xpath("/html/body/table[2]/tbody/tr[1]/td[2]/a[4]");
 	String page = "Login";
+
 	public Login(){
 		driver = ManagerDriver.getInstance().getWebDriver();
 		PageFactory.initElements(driver, this);
@@ -34,10 +30,10 @@ public class Login  extends UiUtils {
 	@FindBy(how =How.ID, using = "login")
 	WebElement Login;
 
-	@FindBy(how =How.XPATH, using = "/html/body/table[2]/tbody/tr[1]/td[1]")
-	WebElement WelcomeText;
+	@FindBy(how =How.XPATH, using = "//*[contains(text(),'Search Hotel')]")
+	WebElement SearchHotelText;
 
-	@FindBy(how =How.XPATH, using = "/html/body/table[2]/tbody/tr[1]/td[2]/a[4]")
+	@FindBy(how =How.XPATH, using = "//a[contains(text(),'Logout')]")
 	WebElement LogOut;
 
 	public void lauchApplication(String url)throws InterruptedException {
@@ -52,8 +48,8 @@ public class Login  extends UiUtils {
 	}
 
 	public void validateHomePage() {
-		String actualText = WelcomeText.getText();
-		Assert.assertEquals(actualText, "Welcome to AdactIn Group of Hotels");
+		//String actualText = SearchHotelText.getText();
+		//Assert.assertEquals(actualText, "Search Hotel");
 	}
 	
 	public void LogOut() throws Exception {
