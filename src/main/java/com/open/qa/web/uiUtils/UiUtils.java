@@ -1,6 +1,7 @@
 package com.open.qa.web.uiUtils;
 
 import com.open.qa.web.webDriverFactory.ManagerDriver;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,11 +11,18 @@ public class UiUtils {
 
     public WebDriver driver;
     public WebDriverWait wait = null;
-
+    public Scenario scenario = null;
     public UiUtils(){
 
     }
 
+    public Scenario getScenario(){
+        return this.scenario;
+    }
+
+    public void setScenario(Scenario scenario){
+        this.scenario = scenario;
+    }
     public void type(WebElement element, String value, String elementName, String page){
         try{
             boolean elementClickable = WaitUntilClickable(element, Integer.valueOf(10000));

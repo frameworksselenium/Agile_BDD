@@ -1,7 +1,11 @@
 package com.open.hotel.pages;
 
+import com.open.qa.util.threadLevelVariables.ScenarioVariable;
+import com.open.qa.util.threadLevelVariables.ScenarioVariableManager;
+import com.open.qa.util.threadLevelVariables.VariableManager;
 import com.open.qa.web.uiUtils.UiUtils;
 import com.open.qa.web.webDriverFactory.ManagerDriver;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,6 +54,11 @@ public class Search   extends UiUtils {
 	}
 
 	public void validateHotelRoomSearch() {
+		System.out.println(VariableManager.getInstance().getVariablesManager().getObject("TestCaseName"));
+
+		//Scenario scenario = ScenarioVariableManager.getInstance().getScenarioVariable().getObject();
+		Scenario scenario = getScenario();
+		scenario.write("Select Room Page displayed");
 		//String expectedText = SelectHotelText.getText();
 		//Assert.assertEquals(expectedText.getText(), "Select Hotel");
 	}

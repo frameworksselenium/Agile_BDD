@@ -1,6 +1,6 @@
 Feature: login hotel application
 
-  @SmokeTest
+  @SmokeTest1
   Scenario: login to the hotel application
     Given Open application
     Then User is able Launch the hotel application using "http://adactin.com/HotelApp/index.php"
