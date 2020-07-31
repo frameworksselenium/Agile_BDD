@@ -1,9 +1,9 @@
+@SmokeTest
 Feature: login hotel application
 
-  @SmokeTest1
-  Scenario: login to the hotel application
-    Given Open application
-    Then User is able Launch the hotel application using "http://adactin.com/HotelApp/index.php"
-    When User enters the "kmanubolu" and "India@123" and click on login button
-    Then User naviaged to home page
+  @SmokeTest
+  Scenario: 101:login to the hotel application
+    Given Open Browser
+    Given User is able Launch the hotel application using "http://adactin.com/HotelApp/index.php"
+    When User enters the "kmanubolu" and "India@123" and Click LogIn button
 	And LogOut application

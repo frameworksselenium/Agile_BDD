@@ -1,59 +1,49 @@
 package com.open.hotel.pages;
 
-import com.open.qa.web.uiUtils.UiUtils;
-import com.open.qa.web.webDriverFactory.ManagerDriver;
+import com.open.hotel.Logger.LoggerClass;
+import com.open.hotel.uiUtils.UIUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
-import java.util.concurrent.TimeUnit;
+public class Login  extends UIUtils {
+	org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
 
-public class Login  extends UiUtils {
-
-	public WebDriver driver = null;
-	String page = "Login";
-
-	public Login(){
-		driver = ManagerDriver.getInstance().getWebDriver();
-		PageFactory.initElements(driver, this);
-	}
-
-	@FindBy(how =How.ID, using = "username")
+	WebDriver driver = null;
+	String pageName = "Login Page";
+	@FindBy(how = How.ID, using = "username")
 	WebElement UserName;
-
 	@FindBy(how =How.ID, using = "password")
 	WebElement Password;
-
 	@FindBy(how =How.ID, using = "login")
 	WebElement Login;
-
-	@FindBy(how =How.XPATH, using = "//*[contains(text(),'Search Hotel')]")
-	WebElement SearchHotelText;
-
-	@FindBy(how =How.XPATH, using = "//a[contains(text(),'Logout')]")
+	@FindBy(how =How.ID, using = "\"/html/body/table[2]/tbody/tr[1]/td[2]/a[4]\"")
 	WebElement LogOut;
 
-	public void lauchApplication(String url)throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(55, TimeUnit.SECONDS);
+	public Login(WebDriver driver){
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(this.driver, this);
+	}
+	public void lauchApplication(String url) throws InterruptedException {
 		driver.get(url);
+		Thread.sleep(1000);
+		log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' opened applicaion '" + url + "'");
+
 	}
 
 	public void login(String userName, String password) throws Exception {
-		type(UserName, userName, "userName", this.page);
-		type(Password, password, "password", this.page);
-		clickElement(Login, "Login", this.page);
+
+		type(UserName, userName,"UserName", this.pageName);
+		type(Password, password,"Password", this.pageName);
+		clickElement(Login, "Login", this.pageName);
 	}
 
-	public void validateHomePage() {
-		//String actualText = SearchHotelText.getText();
-		//Assert.assertEquals(actualText, "Search Hotel");
-	}
-	
 	public void LogOut() throws Exception {
-		clickElement(LogOut, "LogOut", this.page);
+
+		clickElement(LogOut, "LogOut", this.pageName);
 	}
 
 }
