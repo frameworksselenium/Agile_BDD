@@ -9,7 +9,9 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 public class Login  extends UIUtils {
-	org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
+
+	String testCaseName = null;
+	String testCaseID = null;
 
 	WebDriver driver = null;
 	String pageName = "Login Page";
@@ -19,15 +21,18 @@ public class Login  extends UIUtils {
 	WebElement Password;
 	@FindBy(how =How.ID, using = "login")
 	WebElement Login;
-	@FindBy(how =How.ID, using = "\"/html/body/table[2]/tbody/tr[1]/td[2]/a[4]\"")
+	@FindBy(how =How.ID, using = "/html/body/table[2]/tbody/tr[1]/td[2]/a[4]")
 	WebElement LogOut;
 
-	public Login(WebDriver driver){
-		super(driver);
+	public Login(WebDriver driver, String testCaseName, String testCaseID){
+		super(driver, testCaseName,testCaseID);
+		this.testCaseName = testCaseName;
+		this.testCaseID = testCaseID;
 		this.driver = driver;
 		PageFactory.initElements(this.driver, this);
 	}
 	public void lauchApplication(String url) throws InterruptedException {
+		org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
 		driver.get(url);
 		Thread.sleep(1000);
 		log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' opened applicaion '" + url + "'");

@@ -32,10 +32,6 @@ public class SetpDefinition {
 	public void beforeScenario(Scenario scenario){
 		testCaseName = scenario.getName().split(":")[1];
 		testCaseID = scenario.getName().split(":")[0];
-		UIUtils uiUtils = new UIUtils();
-		uiUtils.setTestCaseID(testCaseID);
-		uiUtils.setTestCaseName(testCaseName);
-		uiUtils.setScenario(scenario);
 	}
 
 	@After()
@@ -47,7 +43,7 @@ public class SetpDefinition {
 	}
 
 	@Given("Open Browser")
-	public void Open_Browser(String arg1) {
+	public void Open_Browser() {
 		String browser = Config.properties.getProperty("Browser");
 		String driverPath = System.getProperty("user.dir");
 		if (browser.toUpperCase().contains("CH")) {
@@ -64,8 +60,8 @@ public class SetpDefinition {
 			options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
 			this.driver = new ChromeDriver(options);
 		}
-		login = new Login(this.driver);
-		search = new Search(this.driver);
+		login = new Login(this.driver, this.testCaseName, this.testCaseID);
+		search = new Search(this.driver, this.testCaseName, this.testCaseID);
 	}
 
 

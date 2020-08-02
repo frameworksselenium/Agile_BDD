@@ -15,16 +15,17 @@ public class UIUtils {
     public Scenario scenario = null;
     public String  testCaseName = null;
     public String  testCaseID = null;
+    org.apache.log4j.Logger log = null;
 
-    org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
-
-    public UIUtils(WebDriver driver){
+    public UIUtils(WebDriver driver, String testCaseName, String testCaseID){
+        this.testCaseName = testCaseName;
+        this.testCaseID = testCaseID;
+        log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
         this.driver = driver;
     }
-    public UIUtils(){
 
-    }
     public void type(WebElement element, String value, String elementName, String page){
+
         try{
             boolean elementClickable = WaitUntilClickable(element, Integer.valueOf(Config.properties.getProperty("LONGWAIT")));
             highlightElement(element);
@@ -38,6 +39,8 @@ public class UIUtils {
     }
 
     public void clickElement(WebElement element, String elementName, String page){
+        org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
+
         try{
             boolean elementClickable = WaitUntilClickable(element, Integer.valueOf(Config.properties.getProperty("LONGWAIT")));
             highlightElement(element);
@@ -89,15 +92,4 @@ public class UIUtils {
             executor.executeScript("arguments[0].setAttribute('style', arguments[1]);", element, getattrib);
     }
 
-    public void setScenario(Scenario scenario){
-        this.scenario = scenario;
-    }
-
-    public void setTestCaseName(String  testCaseName){
-        this.testCaseName = testCaseName;
-    }
-
-    public void setTestCaseID(String  testCaseID){
-        this.testCaseID = testCaseID;
-    }
 }

@@ -13,10 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.HashMap;
 
 public class Search   extends UIUtils {
-	org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
 
+	String testCaseName = null;
+	String testCaseID = null;
 	WebDriverWait wait = null;
 	WebDriver driver = null;
+	org.apache.log4j.Logger log = null;
 	String pageName = "Hotel Search Page";
 
 	@FindBy(how = How.NAME, using = "location")
@@ -34,8 +36,11 @@ public class Search   extends UIUtils {
 	@FindBy(how =How.NAME, using = "//*[contains(text(),'Select Hotel')]")
 	WebElement SelectHotelText;
 
-	public Search(WebDriver driver){
-		super(driver);
+	public Search(WebDriver driver,String testCaseName, String testCaseID){
+		super(driver, testCaseName, testCaseID);
+		this.testCaseName = testCaseName;
+		this.testCaseID = testCaseID;
+		log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
 		this.driver = driver;
 		PageFactory.initElements(this.driver, this);
 	}
