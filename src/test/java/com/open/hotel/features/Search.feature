@@ -1,7 +1,6 @@
-@SmokeTest
 Feature: search room in hotel application
 
-  @SmokeTest1
+  @SmokeTest
   Scenario: 102:Search Hotel Room
     Given Open Browser
     Given User is able Launch the hotel application using "http://adactin.com/HotelApp/index.php"
@@ -16,4 +15,4 @@ Feature: search room in hotel application
       | Check Out Date    | 18/07/2020  |
       | Adults per Room   | 1 - One     |
       | Children per Room | 2 - Two     |
-	And LogOut application
+	#And LogOut application

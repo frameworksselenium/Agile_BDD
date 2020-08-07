@@ -9,7 +9,6 @@
 
 	<properties>
 		<testng.threadcount>1</testng.threadcount>
-
 	</properties>
    <dependencies>
 
