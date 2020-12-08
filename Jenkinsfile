@@ -10,7 +10,7 @@ stage ('CodeCheckOut')
 
 stage ('Compile Stage')
     {
-        sh "${mavenHome}/bin/mvn clean install"
+        sh "${mavenHome}/bin/mvn clean install -DskipTests"
     }
 
 stage ('Test Stage')
@@ -24,11 +24,4 @@ stage ('Cucumber Reports')
        fileIncludePattern: "**/cucumber.json",
        jsonReportDirectory: 'target'
      }
-
-stage ('Cucumber Original Reports')
-         {
-            sh 'chmod -R 777 ${WORKSPACE}'
-            sh 'cd ${WORKSPACE}/target/cucumberReport'
-            livingDocs featuresDir: "${WORKSPACE}/target/Reports"
-          }
 }
