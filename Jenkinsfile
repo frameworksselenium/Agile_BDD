@@ -16,7 +16,7 @@ stage ('Compile Stage')
 stage ('Test Stage')
     {
 
-        sh "${mavenHome}/bin/mvn test -Dcucumber.options='–tags @all'"
+        sh "${mavenHome}/bin/mvn -Dcucumber.options ='--tags=@all' test"
     }
 
 stage ('Cucumber Reports')
