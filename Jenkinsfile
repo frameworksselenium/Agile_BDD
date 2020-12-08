@@ -15,7 +15,7 @@ stage ('Compile Stage')
 
 stage ('Test Stage')
     {
-
+        echo "Work space::::: ${WORKSPACE}"
         sh "${mavenHome}/bin/mvn test -Dthreadcount = '2'"
     }
 
