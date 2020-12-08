@@ -1,6 +1,6 @@
 Feature: search room in hotel application
 
-  @SmokeTest
+  @all
   Scenario: 102:Search Hotel Room
     Given Open Browser
     Given User is able Launch the hotel application using "http://adactin.com/HotelApp/index.php"

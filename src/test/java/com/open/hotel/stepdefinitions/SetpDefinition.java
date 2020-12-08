@@ -12,10 +12,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.*;
 
@@ -45,20 +50,43 @@ public class SetpDefinition {
 	@Given("Open Browser")
 	public void Open_Browser() {
 		String browser = Config.properties.getProperty("Browser");
+		String ExecutionMode = Config.properties.getProperty("ExecutionMode");
 		String driverPath = System.getProperty("user.dir");
-		if (browser.toUpperCase().contains("CH")) {
-			System.setProperty("webdriver.chrome.driver", driverPath + "\\src\\test\\resources\\drivers\\chromedriver.exe");
-			ChromeOptions options = new ChromeOptions();
-			Map<String, Object> prefs = new HashMap<String, Object>();
-			prefs.put("credentials_enable_service", false);
-			prefs.put("profile.password_manager_enabled", false);
-			options.setExperimentalOption("prefs", prefs);
-			options.setExperimentalOption("useAutomationExtension", false);
-			options.addArguments("no-sandbox");
-			options.addArguments("start-maximized");
-			options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
-			options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
-			this.driver = new ChromeDriver(options);
+		if(ExecutionMode.contains("Local")) {
+			if (browser.toUpperCase().contains("CH")) {
+				System.setProperty("webdriver.chrome.driver", driverPath + "\\src\\test\\resources\\drivers\\chromedriver.exe");
+				ChromeOptions options = new ChromeOptions();
+				Map<String, Object> prefs = new HashMap<String, Object>();
+				prefs.put("credentials_enable_service", false);
+				prefs.put("profile.password_manager_enabled", false);
+				options.setExperimentalOption("prefs", prefs);
+				options.setExperimentalOption("useAutomationExtension", false);
+				options.addArguments("no-sandbox");
+				options.addArguments("start-maximized");
+				options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+				options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
+				this.driver = new ChromeDriver(options);
+			}
+		} else if (ExecutionMode.contains("Remote")) {
+			// RemoteWebDriver driver = null;
+			DesiredCapabilities cap = null;
+			if (browser.toUpperCase().contains("CH")) {
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("no-sandbox");
+				options.addArguments("start-maximized");
+				options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+				options.setExperimentalOption("useAutomationExtension", false);
+				options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
+				cap = DesiredCapabilities.chrome();
+				cap.setCapability(ChromeOptions.CAPABILITY, options);
+				cap.setBrowserName("chrome");
+				cap.setPlatform(Platform.LINUX);
+			}
+			try {
+				driver = new RemoteWebDriver(new URL(Config.properties.getProperty("RemoteURL")), cap);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 		}
 		login = new Login(this.driver, this.testCaseName, this.testCaseID);
 		search = new Search(this.driver, this.testCaseName, this.testCaseID);
