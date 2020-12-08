@@ -21,7 +21,7 @@ stage ('Test Stage')
 stage ('Cucumber Reports')
     {
        cucumber buildStatus: "UNSTABLE",
-       fileIncludePattern: "*/cucumberReport/cucumber.json",
-       jsonReportDirectory: 'target/cucumberReport', sortingMethod: 'ALPHABETICAL'
+       fileIncludePattern: "**/cucumber.json",
+       jsonReportDirectory: 'target'
      }
 }
