@@ -17,10 +17,10 @@ stage ('Test Stage')
     {
         echo "Work space::::: ${WORKSPACE}"
         echo "Tags for execution::::: ${Tags}"
-        echo "Execution Environment::::: ${Environment}"
+        echo "Execution Environment::::: ${ExecutionEnvironment}"
         echo "No of threads for execution::::: ${Threads}"
 
-        sh "${mavenHome}/bin/mvn test -Dthreadcount = 2"
+        sh "${mavenHome}/bin/mvn test -Dthreadcount 2"
     }
 
 stage ('Cucumber Reports')
