@@ -9,6 +9,7 @@
 
 	<properties>
 		<threadcount>1</threadcount>
+		<ExecutionEnvironment>${ExecutionEnvironment}</ExecutionEnvironment>
 	</properties>
    <dependencies>
 
