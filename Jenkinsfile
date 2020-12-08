@@ -29,13 +29,6 @@ stage ('Cucumber Original Reports')
          {
             sh 'chmod -R 777 ${WORKSPACE}'
             sh 'cd ${WORKSPACE}/target/cucumberReport'
-            publishHTML (target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: "${WORKSPACE}/target/cucumberReport",
-                    reportFiles: '*.html',
-                    reportName : 'Cucumber Original Report'
-            ])
+            livingDocs featuresDir: "${WORKSPACE}/target/Reports"
           }
 }
