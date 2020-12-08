@@ -20,8 +20,8 @@ public class Config {
             //File directory = new File (".");
             String rootFolderName = System.getProperty("user.dir");
             System.out.println("Project Path:" + rootFolderName);
-            String configFilePath = rootFolderName + "\\src\\test\\resources\\config";
-            FileInputStream fis = new FileInputStream( configFilePath + "\\Sys.properties");
+            String configFilePath = rootFolderName + "/src/test/resources/config";
+            FileInputStream fis = new FileInputStream( configFilePath + "/Sys.properties");
             properties.load(fis);
             fis.close();
             properties.setProperty("resultFolder", rootFolderName + "/target/Reports");
