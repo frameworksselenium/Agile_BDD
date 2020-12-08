@@ -16,6 +16,8 @@ stage ('Compile Stage')
 stage ('Test Stage')
     {
         echo "Work space::::: ${WORKSPACE}"
+        echo "Tags for execution::::: ${Tags}"
+
         sh "${mavenHome}/bin/mvn test -Dthreadcount = '2'"
     }
 
