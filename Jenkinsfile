@@ -15,12 +15,11 @@ stage ('Compile Stage')
 
 stage ('Test Stage')
     {
-        sh "
         echo "Test Arguments:"
         echo "-DEnvironment = ${Environment}"
         echo "-Dcucumber.options = -tags ${Tag}"
         echo "-Dthreadcount = ${Threads}"
-        ${mavenHome}/bin/mvn test -DEnvironment = ${Environment} -Dcucumber.options = -tags ${Tag} -Dthreadcount = ${Threads}"
+        sh "${mavenHome}/bin/mvn test -DEnvironment = ${Environment} -Dcucumber.options = -tags ${Tag} -Dthreadcount = ${Threads}"
     }
 
 stage ('Cucumber Reports')
