@@ -98,12 +98,12 @@
 				<version>3.0.0-M5</version>
 				<configuration>
 					<parallel>true</parallel>
-					<threadCount>${testng.threadcount}</threadCount>threadCount>
+					<threadCount>${threadcount}</threadCount>threadCount>
 					<includes>com.open.hotel.runner.TestNGRunner</includes>
 					<properties>
 						<property>
 							<name>dataproviderthreadcount</name>
-							<value>${testng.threadcount}</value>
+							<value>${threadcount}</value>
 						</property>
 					</properties>
 				</configuration>
