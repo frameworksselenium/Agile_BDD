@@ -16,7 +16,7 @@ stage ('Compile Stage')
 stage ('Test Stage')
     {
 
-        sh "${mavenHome}/bin/mvn test -Dthreadcount = 2"
+        sh "${mavenHome}/bin/mvn test -Dthreadcount = '2'"
     }
 
 stage ('Cucumber Reports')
