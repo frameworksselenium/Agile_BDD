@@ -16,7 +16,7 @@ stage ('Compile Stage')
 stage ('Test Stage')
     {
 
-        sh "${mavenHome}/bin/mvn test -DEnvironment = ${Environment} -Dcucumber.options = --tags ${Tag} -Dthreadcount = ${Threads}"
+        sh "${mavenHome}/bin/mvn test -DEnvironment = QA -Dcucumber.options = --tags @all -Dthreadcount = 2"
     }
 
 stage ('Cucumber Reports')
