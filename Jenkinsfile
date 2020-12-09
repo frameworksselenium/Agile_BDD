@@ -20,7 +20,7 @@ stage ('Test Stage')
         echo "Execution Environment::::: ${ExecutionEnvironment}"
         echo "No of threads for execution::::: ${Threads}"
 
-        sh "${mavenHome}/bin/mvn clean test -DExecutionEnvironment="QA" -Dcucumber.filter.tags="@all" -Dtestng.threadcount="2""
+        sh "${mavenHome}/bin/mvn clean test -DExecutionEnvironment=${ExecutionEnvironment} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads}"
     }
 
 stage ('Cucumber Reports')
