@@ -38,9 +38,8 @@ public class Login  extends UIUtils {
 		String url = null;
 		if(executionEnvironment == null){
 			executionEnvironment = Config.properties.getProperty("Environment");
-			url = Config.properties.getProperty(executionEnvironment);
-
 		}
+		url = Config.properties.getProperty(executionEnvironment);
 		driver.get(url);
 		Thread.sleep(1000);
 		log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' opened applicaion '" + url + "'");
