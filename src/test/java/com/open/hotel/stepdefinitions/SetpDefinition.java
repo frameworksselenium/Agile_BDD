@@ -3,7 +3,6 @@ package com.open.hotel.stepdefinitions;
 import com.open.hotel.loadConfig.Config;
 import com.open.hotel.pages.Login;
 import com.open.hotel.pages.Search;
-import com.open.hotel.uiUtils.UIUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -49,9 +48,31 @@ public class SetpDefinition {
 
 	@Given("Open Browser")
 	public void Open_Browser() {
-		String browser = Config.properties.getProperty("Browser");
-		String ExecutionMode = Config.properties.getProperty("ExecutionMode");
+
+		String RemoteType = System.getProperty("RemoteType");
+		if(RemoteType == null){
+			RemoteType = Config.properties.getProperty("RemoteType");
+		}
+
+		String RemoteURL = System.getProperty("RemoteURL");
+		if(RemoteURL == null){
+			RemoteURL = Config.properties.getProperty("RemoteURL");
+		}
+
+		String ExecutionMode = System.getProperty("ExecutionMode");
+		if(ExecutionMode == null){
+			ExecutionMode = Config.properties.getProperty("ExecutionMode");
+		}
+
+		String browser = System.getProperty("Browser");
+		if(browser == null){
+			browser = Config.properties.getProperty("Browser");
+		}
+
+		//String ExecutionMode = Config.properties.getProperty("ExecutionMode");
 		String driverPath = System.getProperty("user.dir");
+
+
 		if(ExecutionMode.contains("Local")) {
 			if (browser.toUpperCase().contains("CH")) {
 				System.setProperty("webdriver.chrome.driver", driverPath + "\\src\\test\\resources\\drivers\\chromedriver.exe");
@@ -67,7 +88,7 @@ public class SetpDefinition {
 				options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
 				this.driver = new ChromeDriver(options);
 			}
-		} else if (ExecutionMode.contains("Remote")) {
+		} else if (ExecutionMode.contains("GRID")) {
 			// RemoteWebDriver driver = null;
 			DesiredCapabilities cap = null;
 			if (browser.toUpperCase().contains("CH")) {
@@ -80,10 +101,14 @@ public class SetpDefinition {
 				cap = DesiredCapabilities.chrome();
 				cap.setCapability(ChromeOptions.CAPABILITY, options);
 				cap.setBrowserName("chrome");
-				cap.setPlatform(Platform.LINUX);
+				if(RemoteType.contains("AWS")) {
+					cap.setPlatform(Platform.LINUX);
+				}else if(RemoteType.contains("VM")){
+					cap.setPlatform(Platform.LINUX);
+				}
 			}
 			try {
-				driver = new RemoteWebDriver(new URL(Config.properties.getProperty("RemoteURL")), cap);
+				driver = new RemoteWebDriver(new URL(RemoteURL), cap);
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			}
@@ -92,11 +117,9 @@ public class SetpDefinition {
 		search = new Search(this.driver, this.testCaseName, this.testCaseID);
 	}
 
-
-
-	@Given("User is able Launch the hotel application using {string}")
-	public void user_is_able_Launch_the_hotel_application_using(String arg1) throws InterruptedException {
-		login.lauchApplication(arg1);
+	@Given("User is able Launch the hotel application using")
+	public void user_is_able_Launch_the_hotel_application_using() throws InterruptedException {
+		login.lauchApplication();
 	}
 	
 	@When("User enters the {string} and {string} and Click LogIn button")

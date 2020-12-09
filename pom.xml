@@ -10,6 +10,10 @@
 	<properties>
 		<testng.threadcount>$testng.threadcount</testng.threadcount>
 		<ExecutionEnvironment>$ExecutionEnvironment</ExecutionEnvironment>
+		<Browser>$Browser</Browser>
+		<RemoteType>$RemoteType</RemoteType>
+		<RemoteURL>$RemoteURL</RemoteURL>
+		<ExecutionMode>$ExecutionMode</ExecutionMode>
 	</properties>
    <dependencies>
 

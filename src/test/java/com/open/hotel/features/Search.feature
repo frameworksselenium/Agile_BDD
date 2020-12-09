@@ -3,7 +3,7 @@ Feature: search room in hotel application
   @all
   Scenario: 102:Search Hotel Room
     Given Open Browser
-    Given User is able Launch the hotel application using "http://adactin.com/HotelApp/index.php"
+    Given User is able Launch the hotel application using
     When User enters the "kmanubolu" and "India@123" and Click LogIn button
 	And user enters the required information and clicks the search button in search hotel page
       | UILables          | Values      |

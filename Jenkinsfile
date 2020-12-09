@@ -20,7 +20,12 @@ stage ('Test Stage')
         echo "Execution Environment::::: ${ExecutionEnvironment}"
         echo "No of threads for execution::::: ${Threads}"
 
-        sh "${mavenHome}/bin/mvn clean test -DExecutionEnvironment=${ExecutionEnvironment} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads}"
+        echo "Browser::::: ${Browser}"
+        echo "RemoteType::::: ${RemoteType}"
+        echo "RemoteURL::::: ${RemoteURL}"
+        echo "ExecutionMode::::: ${ExecutionMode}"
+
+        sh "${mavenHome}/bin/mvn clean test -DExecutionEnvironment=${ExecutionEnvironment} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads} -DBrowser=${Browser} -DRemoteType=${RemoteType} -DRemoteURL=${RemoteURL} -DExecutionMode=${ExecutionMode}"
     }
 
 stage ('Cucumber Reports')

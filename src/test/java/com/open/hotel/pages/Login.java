@@ -1,6 +1,7 @@
 package com.open.hotel.pages;
 
 import com.open.hotel.Logger.LoggerClass;
+import com.open.hotel.loadConfig.Config;
 import com.open.hotel.uiUtils.UIUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,8 +32,15 @@ public class Login  extends UIUtils {
 		this.driver = driver;
 		PageFactory.initElements(this.driver, this);
 	}
-	public void lauchApplication(String url) throws InterruptedException {
+	public void lauchApplication() throws InterruptedException {
 		org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
+		String executionEnvironment = System.getProperty("ExecutionEnvironment");
+		String url = null;
+		if(executionEnvironment == null){
+			executionEnvironment = Config.properties.getProperty("Environment");
+			url = Config.properties.getProperty(executionEnvironment);
+
+		}
 		driver.get(url);
 		Thread.sleep(1000);
 		log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' opened applicaion '" + url + "'");
