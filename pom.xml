@@ -8,8 +8,8 @@
   <packaging>jar</packaging>
 
 	<properties>
-		<threadcount>1</threadcount>
-		<ExecutionEnvironment>${ExecutionEnvironment}</ExecutionEnvironment>
+		<testng.threadcount>$testng.threadcount</testng.threadcount>
+		<ExecutionEnvironment>$ExecutionEnvironment</ExecutionEnvironment>
 	</properties>
    <dependencies>
 
@@ -92,39 +92,39 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
-				<configuration>
-					<parallel>true</parallel>
-					<threadCount>${threadcount}</threadCount>threadCount>
-					<includes>com.open.hotel.runner.TestNGRunner</includes>
-					<properties>
-						<property>
-							<name>dataproviderthreadcount</name>
-							<value>${threadcount}</value>
-						</property>
-					</properties>
-				</configuration>
-			</plugin>
 
-			<!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M5</version>
-				<configuration>
-					<parallel>true</parallel>
-					<includes>com.open.hotel.runner.TestNGRunner</includes>
-					<systemProperties>
-						<property>
-							<name>dataproviderthreadcount</name>
-							<value>${threadcount}</value>
-						</property>
-					</systemProperties>
-				</configuration>
-			</plugin>-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <parallel>true</parallel>
+                    <threadCount>${threadcount}</threadCount>threadCount>
+                    <includes>com.open.hotel.runner.TestNGRunner</includes>
+                    <properties>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>${threadcount}</value>
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>-->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <parallel>true</parallel>
+                    <includes>com.open.hotel.runner.TestNGRunner</includes>
+                    <systemProperties>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>${testng.threadcount}</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>

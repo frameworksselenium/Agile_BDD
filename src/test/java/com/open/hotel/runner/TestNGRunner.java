@@ -39,7 +39,7 @@ public class TestNGRunner extends AbstractTestNGCucumberTests {
 	@BeforeSuite()
 	public void setup(){
 		System.out.println(System.getProperty("ExecutionEnvironment"));
-		
+
 		Config.createFolder(Config.properties.getProperty("resultFolder"));
 		Config.createFolder(Config.properties.getProperty("resultFolderName"));
 	}
