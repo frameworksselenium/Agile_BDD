@@ -1,6 +1,7 @@
 package com.open.hotel.pages;
 
-import com.open.hotel.Logger.LoggerClass;
+import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.threadVariables.VariableManager;
 import com.open.hotel.uiUtils.UIUtils;
 
 import org.openqa.selenium.WebDriver;
@@ -8,17 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 
 public class Search   extends UIUtils {
 
-	String testCaseName = null;
-	String testCaseID = null;
-	WebDriverWait wait = null;
 	WebDriver driver = null;
-	org.apache.log4j.Logger log = null;
+	org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), VariableManager.getInstance().getVariables().getVar("testCaseID").toString());
 	String pageName = "Hotel Search Page";
 
 	@FindBy(how = How.NAME, using = "location")
@@ -36,12 +33,8 @@ public class Search   extends UIUtils {
 	@FindBy(how =How.NAME, using = "//*[contains(text(),'Select Hotel')]")
 	WebElement SelectHotelText;
 
-	public Search(WebDriver driver,String testCaseName, String testCaseID){
-		super(driver, testCaseName, testCaseID);
-		this.testCaseName = testCaseName;
-		this.testCaseID = testCaseID;
-		log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
-		this.driver = driver;
+	public Search(){
+		this.driver = (WebDriver) VariableManager.getInstance().getVariables().getVar("driver");
 		PageFactory.initElements(this.driver, this);
 	}
 

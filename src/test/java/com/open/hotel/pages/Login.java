@@ -1,7 +1,8 @@
 package com.open.hotel.pages;
 
-import com.open.hotel.Logger.LoggerClass;
-import com.open.hotel.loadConfig.Config;
+import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.config.Config;
+import com.open.hotel.threadVariables.VariableManager;
 import com.open.hotel.uiUtils.UIUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,12 +12,11 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Login  extends UIUtils {
 
-	String testCaseName = null;
-	String testCaseID = null;
+	org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), VariableManager.getInstance().getVariables().getVar("testCaseID").toString());
 
 	WebDriver driver = null;
 	String pageName = "Login Page";
-	@FindBy(how = How.ID, using = "username")
+	@FindBy(how = How.ID, using = "usernam")
 	WebElement UserName;
 	@FindBy(how =How.ID, using = "password")
 	WebElement Password;
@@ -25,21 +25,16 @@ public class Login  extends UIUtils {
 	@FindBy(how =How.ID, using = "/html/body/table[2]/tbody/tr[1]/td[2]/a[4]")
 	WebElement LogOut;
 
-	public Login(WebDriver driver, String testCaseName, String testCaseID){
-		super(driver, testCaseName,testCaseID);
-		this.testCaseName = testCaseName;
-		this.testCaseID = testCaseID;
-		this.driver = driver;
+	public Login(){
+		this.driver = (WebDriver) VariableManager.getInstance().getVariables().getVar("driver");
 		PageFactory.initElements(this.driver, this);
 	}
 	public void lauchApplication() throws InterruptedException {
-		org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
-		String executionEnvironment = System.getProperty("ExecutionEnvironment");
-		String url = null;
-		if(executionEnvironment == null){
-			executionEnvironment = Config.properties.getProperty("Environment");
+		String Env = System.getProperty("Environment");
+		if (Env == null) {
+			Env = Config.properties.getProperty("Environment");
 		}
-		url = Config.properties.getProperty(executionEnvironment);
+			String url = Config.properties.getProperty(Env);
 		driver.get(url);
 		Thread.sleep(1000);
 		log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' opened applicaion '" + url + "'");

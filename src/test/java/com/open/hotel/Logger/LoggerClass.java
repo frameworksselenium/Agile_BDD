@@ -1,6 +1,6 @@
-package com.open.hotel.Logger;
+package com.open.hotel.logger;
 
-import com.open.hotel.loadConfig.Config;
+import com.open.hotel.config.Config;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 

@@ -5,7 +5,7 @@ def mavenHome = tool name: "maven3.6"
     
 stage ('CodeCheckOut')    
     {
-        git branch: 'master', credentialsId: 'GIT', url: 'https://github.com/frameworksselenium/Agile_BDD.git'
+        git branch: 'pooja', credentialsId: 'GIT', url: 'https://github.com/poojamoulikav/Agile_BDD.git'
     }
 
 stage ('Compile Stage')
@@ -15,23 +15,13 @@ stage ('Compile Stage')
 
 stage ('Test Stage')
     {
-        echo "Work space::::: ${WORKSPACE}"
-        echo "Tags for execution::::: ${Tags}"
-        echo "Execution Environment::::: ${ExecutionEnvironment}"
-        echo "No of threads for execution::::: ${Threads}"
-
-        echo "Browser::::: ${Browser}"
-        echo "RemoteType::::: ${RemoteType}"
-        echo "RemoteURL::::: ${RemoteURL}"
-        echo "ExecutionMode::::: ${ExecutionMode}"
-
-        sh "${mavenHome}/bin/mvn clean test -DExecutionEnvironment=${ExecutionEnvironment} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads} -DBrowser=${Browser} -DRemoteType=${RemoteType} -DRemoteURL=${RemoteURL} -DExecutionMode=${ExecutionMode}"
+        sh "${mavenHome}/bin/mvn test -DEnvironment=${ExecutionEnvironment} -DBrowser=${Browser} -DExecutionMode=${ExecutionMode} -DRemoteType=${RemoteType} -DRemoteURL=${RemoteURL} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads}"
     }
 
 stage ('Cucumber Reports')
     {
        cucumber buildStatus: "UNSTABLE",
-       fileIncludePattern: "**/cucumber.json",
-       jsonReportDirectory: 'target'
+              fileIncludePattern: "**/cucumber.json",
+              jsonReportDirectory: 'target'
      }
 }

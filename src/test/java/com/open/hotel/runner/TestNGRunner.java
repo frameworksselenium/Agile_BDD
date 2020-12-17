@@ -1,6 +1,7 @@
 package com.open.hotel.runner;
 
-import com.open.hotel.loadConfig.Config;
+import com.open.hotel.config.Config;
+import com.open.hotel.report.Report;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -21,9 +22,9 @@ import java.util.List;
 				"html:target/cucumberReport",
 				"json:target/cucumberReport/cucumber.json",
 		},
-		tags={"@all"},
+		tags={"@RestApiCSVPostRequest"},
 		features = "src/test/java/com/open/hotel/features",
-		glue={"com.open.hotel.stepdefinitions"},
+		glue={"com.open.hotel.stepdefinitions", "com.open.hotel.hooks"},
 		strict = true,
 		dryRun = false
 )
@@ -38,8 +39,6 @@ public class TestNGRunner extends AbstractTestNGCucumberTests {
 
 	@BeforeSuite()
 	public void setup(){
-		System.out.println(System.getProperty("ExecutionEnvironment"));
-
 		Config.createFolder(Config.properties.getProperty("resultFolder"));
 		Config.createFolder(Config.properties.getProperty("resultFolderName"));
 	}
@@ -47,26 +46,7 @@ public class TestNGRunner extends AbstractTestNGCucumberTests {
 	public void tearDown(){
 		List<String> reports = new LinkedList<>();
 		reports.add("target/cucumberReport/cucumber.json");
-		TestNGRunner.generateCucumberReport(reports);
+		Report.generateCucumberReport(reports);
 	}
 
-	public static void generateCucumberReport(List<String> jsonFiles){
-		try{
-			File reportOutputDirectory = new File("target/cucumber-html-full-report");
-			String buildName = "20";
-			String projectName = "Sample Project";
-			Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-			configuration.setBuildNumber(buildName);
-			configuration.addClassifications("Browser", "Chrome");
-			configuration.setSortingMethod(SortingMethod.NATURAL);
-			configuration.addPresentationModes(PresentationMode.EXPAND_ALL_STEPS);
-			configuration.addPresentationModes(PresentationMode.PARALLEL_TESTING);
-			configuration.setTrendsStatsFile(new File("target/test-classes/demo-trends.json"));
-			ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-			reportBuilder.generateReports();
-		}catch (Exception e){
-			//LOGGER.error("Failed to generate HTML report, error: " + e.getMessage(), e);
-			throw new RuntimeException(e);
-		}
-	}
 }

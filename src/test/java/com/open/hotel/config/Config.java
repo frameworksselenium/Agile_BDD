@@ -1,4 +1,4 @@
-package com.open.hotel.loadConfig;
+package com.open.hotel.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,11 +7,11 @@ import java.util.Date;
 import java.util.Properties;
 
 public class Config {
+
     public static Properties properties = null;
 
     static {
         properties = Config.init();
-
     }
     public static Properties init(){
 
@@ -19,7 +19,6 @@ public class Config {
         try{
             //File directory = new File (".");
             String rootFolderName = System.getProperty("user.dir");
-            System.out.println("Project Path:" + rootFolderName);
             String configFilePath = rootFolderName + "/src/test/resources/config";
             FileInputStream fis = new FileInputStream( configFilePath + "/Sys.properties");
             properties.load(fis);

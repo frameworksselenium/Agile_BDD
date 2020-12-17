@@ -1,27 +1,26 @@
 package com.open.hotel.uiUtils;
 
-import com.open.hotel.Logger.LoggerClass;
-import com.open.hotel.loadConfig.Config;
+import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.config.Config;
+import com.open.hotel.threadVariables.VariableManager;
+import com.sun.imageio.plugins.common.ImageUtil;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class UIUtils {
     WebDriver driver = null;
-    public Scenario scenario = null;
-    public String  testCaseName = null;
-    public String  testCaseID = null;
-    org.apache.log4j.Logger log = null;
+    Scenario scenario = null;
+    org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), VariableManager.getInstance().getVariables().getVar("testCaseID").toString());;
 
-    public UIUtils(WebDriver driver, String testCaseName, String testCaseID){
-        this.testCaseName = testCaseName;
-        this.testCaseID = testCaseID;
-        log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
-        this.driver = driver;
+    public UIUtils(){
+        this.scenario = (Scenario) VariableManager.getInstance().getVariables().getVar("scenario");
+        this.driver = (WebDriver) VariableManager.getInstance().getVariables().getVar("driver");
     }
 
     public void type(WebElement element, String value, String elementName, String page){
@@ -31,24 +30,31 @@ public class UIUtils {
             highlightElement(element);
             MouseMoveToElement(element);
             element.sendKeys(value);
+            scenario.write("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' Entered value '" + value + "' in '" + elementName + "' text box");
             log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' Entered value '" + value + "' in '" + elementName + "' text box");
         }catch(Exception e){
+            //scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png", DateTimeFormatter.ofPattern("M-dd-yyyy hh:mm:ss").format(LocalDateTime.now()));
+            scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
+
+            scenario.write("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
             log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
     public void clickElement(WebElement element, String elementName, String page){
-        org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), testCaseID);
-
         try{
             boolean elementClickable = WaitUntilClickable(element, Integer.valueOf(Config.properties.getProperty("LONGWAIT")));
             highlightElement(element);
             MouseMoveToElement(element);
             //scrollToElement(element);
             element.click();
+            scenario.write("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' Clicked on '" + elementName + "' button");
             log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'PASS' Clicked on '" + elementName + "' button");
         }catch(Exception e){
+            //scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png", DateTimeFormatter.ofPattern("M-dd-yyyy hh:mm:ss").format(LocalDateTime.now()));
+            scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
+            scenario.write("Thred ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
             log.info("Thred ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
             throw new RuntimeException(e);
         }

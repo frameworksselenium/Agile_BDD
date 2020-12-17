@@ -9,11 +9,11 @@
 
 	<properties>
 		<testng.threadcount>$testng.threadcount</testng.threadcount>
-		<ExecutionEnvironment>$ExecutionEnvironment</ExecutionEnvironment>
+		<Environment>$Environment</Environment>
 		<Browser>$Browser</Browser>
+		<ExecutionMode>$ExecutionMode</ExecutionMode>
 		<RemoteType>$RemoteType</RemoteType>
 		<RemoteURL>$RemoteURL</RemoteURL>
-		<ExecutionMode>$ExecutionMode</ExecutionMode>
 	</properties>
    <dependencies>
 
@@ -33,6 +33,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
+		</dependency>
+
+	   <dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
 		</dependency>
 
 	   <dependency>
@@ -83,7 +89,64 @@
 		   <version>5.2.0</version>
 	   </dependency>
 
-  </dependencies>
+	   <dependency>
+		   <groupId>net.masterthought</groupId>
+		   <artifactId>cucumber-reporting</artifactId>
+		   <version>5.2.0</version>
+	   </dependency>
+
+
+
+
+
+	   <dependency>
+		   <groupId>org.apache.commons</groupId>
+		   <artifactId>commons-csv</artifactId>
+		   <version>1.6</version>
+	   </dependency>
+	   <dependency>
+		   <groupId>com.jayway.jsonpath</groupId>
+		   <artifactId>json-path</artifactId>
+		   <version>2.4.0</version>
+	   </dependency>
+
+	   <dependency>
+		   <groupId>org.json</groupId>
+		   <artifactId>json</artifactId>
+		   <version>20180130</version>
+	   </dependency>
+
+	   <dependency>
+		   <groupId>com.googlecode.json-simple</groupId>
+		   <artifactId>json-simple</artifactId>
+		   <version>1.1</version>
+	   </dependency>
+
+
+	   <dependency>
+		   <groupId>org.apache.poi</groupId>
+		   <artifactId>poi</artifactId>
+		   <version>3.14</version>
+		   <!-- <scope>compile</scope> -->
+	   </dependency>
+
+	   <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+	   <dependency>
+		   <groupId>org.apache.poi</groupId>
+		   <artifactId>poi-ooxml</artifactId>
+		   <version>3.14</version>
+		   <!-- <scope>compile</scope> -->
+	   </dependency>
+
+	   <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
+	   <dependency>
+		   <groupId>org.apache.poi</groupId>
+		   <artifactId>poi-ooxml-schemas</artifactId>
+		   <version>3.14</version>
+		   <!-- <scope>compile</scope> -->
+	   </dependency>
+
+   </dependencies>
 
   	<build>
         <plugins>
@@ -96,39 +159,39 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
+			<!--<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+					<parallel>true</parallel>
+					<threadCount>${testng.threadcount}</threadCount>threadCount>
+					<includes>com.open.hotel.runner.TestNGRunner</includes>
+					<properties>
+						<property>
+							<name>dataproviderthreadcount</name>
+							<value>${testng.threadcount}</value>
+						</property>
+					</properties>
+				</configuration>
+			</plugin>-->
 
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <parallel>true</parallel>
-                    <threadCount>${threadcount}</threadCount>threadCount>
-                    <includes>com.open.hotel.runner.TestNGRunner</includes>
-                    <properties>
-                        <property>
-                            <name>dataproviderthreadcount</name>
-                            <value>${threadcount}</value>
-                        </property>
-                    </properties>
-                </configuration>
-            </plugin>-->
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <parallel>true</parallel>
-                    <includes>com.open.hotel.runner.TestNGRunner</includes>
-                    <systemProperties>
-                        <property>
-                            <name>dataproviderthreadcount</name>
-                            <value>${testng.threadcount}</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M5</version>
+				<configuration>
+					<parallel>true</parallel>
+					<includes>com.open.hotel.runner.TestNGRunner</includes>
+					<systemProperties>
+						<property>
+							<name>dataproviderthreadcount</name>
+							<value>${testng.threadcount}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
 
         </plugins>
     </build>
