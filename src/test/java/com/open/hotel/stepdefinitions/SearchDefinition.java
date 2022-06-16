@@ -21,6 +21,7 @@ public class SearchDefinition {
 		for(int i=0; i<list.size();i++){
 			val.put(list.get(i).get(0), list.get(i).get(1));
 		}
+		search = new Search();
 		search.enterRoomSearchInfo(val);
 	}
 

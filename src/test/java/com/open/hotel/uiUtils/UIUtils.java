@@ -3,7 +3,7 @@ package com.open.hotel.uiUtils;
 import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.config.Config;
 import com.open.hotel.threadVariables.VariableManager;
-import com.sun.imageio.plugins.common.ImageUtil;
+//import com.sun.imageio.plugins.common.ImageUtil;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;

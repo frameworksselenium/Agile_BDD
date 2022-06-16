@@ -16,7 +16,7 @@ public class Login  extends UIUtils {
 
 	WebDriver driver = null;
 	String pageName = "Login Page";
-	@FindBy(how = How.ID, using = "usernam")
+	@FindBy(how = How.ID, using = "username")
 	WebElement UserName;
 	@FindBy(how =How.ID, using = "password")
 	WebElement Password;

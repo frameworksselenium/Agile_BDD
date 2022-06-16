@@ -12,6 +12,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.devicefarm.DeviceFarmClient;
+import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlRequest;
+import software.amazon.awssdk.services.devicefarm.model.CreateTestGridUrlResponse;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,7 +26,7 @@ public class LoginDefinition {
 	public Login login;
 
 	@Given("Open Browser")
-	public void Open_Browser() {
+	public void Open_Browser() throws MalformedURLException {
 		String browser = System.getProperty("Browser");
 		if (browser == null) {
 			browser = Config.properties.getProperty("Browser");
@@ -70,18 +74,41 @@ public class LoginDefinition {
 				cap = DesiredCapabilities.chrome();
 				cap.setCapability(ChromeOptions.CAPABILITY, options);
 				cap.setBrowserName("chrome");
-				if (RemoteType.contains("VM")) {
+				if (RemoteType.contains("WINDOWS")) {
 					cap.setPlatform(Platform.WINDOWS);
-				} else if (RemoteType.contains("AWS")) {
+				} else if (RemoteType.contains("LINUX")) {
 					cap.setPlatform(Platform.LINUX);
 				}
+				try {
+					driver = new RemoteWebDriver(new URL(RemoteURL), cap);
+					VariableManager.getInstance().getVariables().setVar("driver", driver);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
 			}
-			try {
-				driver = new RemoteWebDriver(new URL(RemoteURL), cap);
+		} else if (ExecutionMode.contains("AWSDeviceFarm")) {
+			if (browser.toUpperCase().contains("CH")) {
+
+				String myProjectARN = "arn:aws:devicefarm:us-west-2:905630405612:testgrid-project:4f2e0f3c-c435-43bd-9ce3-fe082c3c2c2f";
+
+				DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
+				CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
+						.expiresInSeconds(300)
+						.projectArn(myProjectARN)
+						.build();
+				CreateTestGridUrlResponse response = client.createTestGridUrl(request);
+				URL testGridUrl = new URL(response.url());
+
+				DesiredCapabilities desired_capabilities = new DesiredCapabilities();
+				desired_capabilities.setCapability("browserName","chrome");
+				desired_capabilities.setCapability("browserVersion", "latest");
+				desired_capabilities.setCapability("platform", "windows");
+
+				// You can now pass this URL into RemoteWebDriver.
+				driver = new RemoteWebDriver(testGridUrl, desired_capabilities);
 				VariableManager.getInstance().getVariables().setVar("driver", driver);
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
 			}
+
 		}
 		login = new Login();
 	}

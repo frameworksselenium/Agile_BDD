@@ -1,10 +1,10 @@
 Feature: search room in hotel application
 
-  @Search
+  @Search @UI
   Scenario: 102:Search Hotel Room
     Given Open Browser
     Given User is able Launch the hotel application
-    When User enters the "kmanubolu" and "India@123" and Click LogIn button
+    When User enters the "kmanubolu" and "PJ15U9" and Click LogIn button
 	And user enters the required information and clicks the search button in search hotel page
       | UILables          | Values      |
       | Location          | Sydney      |
