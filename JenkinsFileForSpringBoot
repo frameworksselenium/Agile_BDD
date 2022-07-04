@@ -22,12 +22,12 @@ pipeline {
             }
                 //sh "mvn test -DEnvironment=${ExecutionEnvironment} -DBrowser=${Browser} -DExecutionMode=${ExecutionMode} -DRemoteType=${RemoteType} -DRemoteURL=${RemoteURL} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads}"
         }
-        //stage ('Cucumber Reports'){
-            //steps {
-            //   cucumber buildStatus: "UNSTABLE",
-            //   fileIncludePattern: "**/cucumber.json",
-            //   jsonReportDirectory: 'target'
-            //}
-        //}
+        stage ('Cucumber Reports'){
+            steps {
+               cucumber buildStatus: "UNSTABLE",
+               fileIncludePattern: "**/cucumber.json",
+               jsonReportDirectory: 'target'
+            }
+        }
     }
 }
