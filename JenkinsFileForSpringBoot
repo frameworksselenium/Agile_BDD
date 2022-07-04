@@ -15,8 +15,8 @@ pipeline {
         }
         stage ('UITest'){
             steps {
-                echo "Execution Environment is : " ${params.Environment}
-                echo "Execution Browser is : " ${params.Browser}
+                echo "Execution Environment is : ${params.Environment}"
+                echo "Execution Browser is : ${params.Browser}"
                 sh "mvn test"
                 //sh "mvn test -DEnvironment=${params.Environment} -DBrowser=${params.Browser} -DExecutionMode=SauceLabs -DRemoteType=WINDOWS -DRemoteURL=https://oauth-kmanubolu-5e40b:10aa25f6-fbd7-4641-8c81-32a10d1c39af@ondemand.us-west-1.saucelabs.com:443/wd/hub -Dcucumber.filter.tags=UI -Dtestng.threadcount=2"
             }
