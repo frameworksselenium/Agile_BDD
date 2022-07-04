@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
     parameters{
         string(name: 'Environment', defaultValue: 'QA', description: 'which app environment script need to be executed')
