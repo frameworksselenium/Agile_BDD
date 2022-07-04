@@ -1,5 +1,10 @@
 pipeline {
+
     agent any
+    parameters{
+        string(name: 'Environment', defaultValue: 'QA', description: 'which app environment script need to be executed')
+        string(name: 'Browser', defaultValue: 'CH', description: 'which browser script need to be executed')
+    }
     tools {
         maven "maven3.6.2"
     }
@@ -9,9 +14,9 @@ pipeline {
                 sh "mvn clean compile"
             }
         }
-        stage ('Test Stage'){
+        stage ('UITest'){
             steps {
-                 sh "mvn test -DEnvironment=QA -DBrowser=CH -DExecutionMode=SauceLabs -DRemoteType=WINDOWS -DRemoteURL=https://oauth-kmanubolu-5e40b:10aa25f6-fbd7-4641-8c81-32a10d1c39af@ondemand.us-west-1.saucelabs.com:443/wd/hub -Dcucumber.filter.tags=UI -Dtestng.threadcount=2"
+                 sh "mvn test -DEnvironment=${params.Environment} -DBrowser=${params.Browser} -DExecutionMode=SauceLabs -DRemoteType=WINDOWS -DRemoteURL=https://oauth-kmanubolu-5e40b:10aa25f6-fbd7-4641-8c81-32a10d1c39af@ondemand.us-west-1.saucelabs.com:443/wd/hub -Dcucumber.filter.tags=UI -Dtestng.threadcount=2"
             }
                  //sh "mvn test -DEnvironment=${ExecutionEnvironment} -DBrowser=${Browser} -DExecutionMode=${ExecutionMode} -DRemoteType=${RemoteType} -DRemoteURL=${RemoteURL} -Dcucumber.filter.tags=${Tags} -Dtestng.threadcount=${Threads}"
         }
