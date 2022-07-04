@@ -109,6 +109,30 @@ public class LoginDefinition {
 				VariableManager.getInstance().getVariables().setVar("driver", driver);
 			}
 
+		}else if (ExecutionMode.contains("SauceLabs")) {
+			DesiredCapabilities cap = null;
+			if (browser.toUpperCase().contains("CH")) {
+				ChromeOptions options = new ChromeOptions();
+				options.addArguments("no-sandbox");
+				options.addArguments("start-maximized");
+				options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+				options.setExperimentalOption("useAutomationExtension", false);
+				options.setExperimentalOption("excludeSwitches", Arrays.asList("disable-popup-blocking"));
+				cap = DesiredCapabilities.chrome();
+				cap.setCapability(ChromeOptions.CAPABILITY, options);
+				cap.setBrowserName("chrome");
+				if (RemoteType.contains("WINDOWS")) {
+					cap.setPlatform(Platform.WINDOWS);
+				} else if (RemoteType.contains("LINUX")) {
+					cap.setPlatform(Platform.LINUX);
+				}
+				try {
+					driver = new RemoteWebDriver(new URL(RemoteURL), cap);
+					VariableManager.getInstance().getVariables().setVar("driver", driver);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		login = new Login();
 	}
