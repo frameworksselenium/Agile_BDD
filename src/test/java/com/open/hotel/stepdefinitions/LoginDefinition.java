@@ -89,7 +89,7 @@ public class LoginDefinition {
 		} else if (ExecutionMode.contains("AWSDeviceFarm")) {
 			if (browser.toUpperCase().contains("CH")) {
 
-				String myProjectARN = "arn:aws:devicefarm:us-west-2:905630405612:testgrid-project:4f2e0f3c-c435-43bd-9ce3-fe082c3c2c2f";
+				String myProjectARN = "arn:aws:devicefarm:us-west-2:624979038454:testgrid-project:513a513f-e103-42b1-9be5-6ca8a9cbad6f";
 
 				DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
 				CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
