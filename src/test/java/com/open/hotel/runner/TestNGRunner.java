@@ -7,25 +7,18 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import io.cucumber.testng.CucumberOptions;
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
-import net.masterthought.cucumber.presentation.PresentationMode;
-import net.masterthought.cucumber.sorting.SortingMethod;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 @CucumberOptions(
 		plugin={
-				"pretty",
-				"html:target/cucumberReport",
-				"json:target/cucumberReport/cucumber.json",
+				"pretty", "json:target/cucumberReport/cucumber.json",
 		},
-		tags={"@UI"},
-		features = "src/test/java/com/open/hotel/features",
+		tags= "@Login",
+		features = "src/test/resources/features",
 		glue={"com.open.hotel.stepdefinitions", "com.open.hotel.hooks"},
-		strict = true,
+		//strict = true,
 		dryRun = false
 )
 public class TestNGRunner extends AbstractTestNGCucumberTests {

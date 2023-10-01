@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Run Test" parallel="tests" verbose="1" thread-count="1">
+    <test name="Regression Tests">
+        <classes>
+            <class name="com.open.hotel.runner.TestNGRunner" />
+        </classes>
+    </test>
+
+</suite>
