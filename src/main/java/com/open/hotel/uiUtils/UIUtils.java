@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Set;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.open.hotel.config.Config;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -30,6 +28,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import com.open.hotel.config.Config;
 import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.threadVariables.VariableManager;
 import io.cucumber.java.Scenario;
@@ -374,6 +373,7 @@ public class UIUtils {
             throw new RuntimeException(e);
         }
     }
+
     public WebElement createWebElement(String xpath) {
         return driver.findElement(By.xpath(xpath));
     }
