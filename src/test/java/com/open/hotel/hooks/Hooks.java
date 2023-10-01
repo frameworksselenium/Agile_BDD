@@ -17,6 +17,7 @@ public class Hooks {
 		String testCaseID = scenario.getName().split(":")[0];
 		Variables variables = new Variables();
 		VariableManager.getInstance().setVariables(variables);
+
 		VariableManager.getInstance().getVariables().setVar("testCaseName", testCaseName);
 		VariableManager.getInstance().getVariables().setVar("testCaseID", testCaseID);
 		VariableManager.getInstance().getVariables().setVar("scenario", scenario);
