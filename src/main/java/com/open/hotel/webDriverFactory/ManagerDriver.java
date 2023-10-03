@@ -27,15 +27,13 @@ public class ManagerDriver {
                 driver = RemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
                 break;
             case "SauceLabsRemote":
-                driver = SauceLabsRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL,
-                        testName, buildId);
+               // driver = SauceLabsRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL,testName, buildId);
                 break;
             case "SauceLabsMobile":
-                driver = SauceLabsMobileRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL,
-                        testName, buildId);
+                //driver = SauceLabsMobileRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
                 break;
             case "AWSDeviceFarm":
-                driver = AWSDeviceFarmDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
+                //driver = AWSDeviceFarmDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
                 break;
             default:
                 throw new RuntimeException(String.format("Provide Correct Execution Mode"));

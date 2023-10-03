@@ -1,19 +1,18 @@
 package com.open.hotel.webDriverFactory;
 
 import com.open.hotel.config.Config;
-import io.github.bonigarcia.wdm.WebDriverManager;
+
+
+import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.threadVariables.VariableManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
-
-import com.open.hotel.logger.LoggerClass;
-import com.open.hotel.threadVariables.VariableManager;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -52,12 +51,12 @@ public class LocalDriverFactory {
             prefs.put("profile.default_content_setting_values.automatic_downloads",1);
             prefs.put("download.default_directory", downloadFileFolder);
 
-            ChromeOptions browserOptions = new ChromeOptions();
+            //ChromeOptions browserOptions = new ChromeOptions();
             //browserOptions.setExperimentalOption("prefs", prefs);
             //browserOptions.setPlatformName(PlatformName);
-            browserOptions.addArguments("--remote-allow-origins=*");
+           // browserOptions.addArguments("--remote-allow-origins=*");
             //browserOptions.setBrowserVersion("latest");
-            WebDriverManager.chromedriver().setup();
+            //WebDriverManager.chromedriver().setup();
             try {
                 //driver = new ChromeDriver(browserOptions);
                 driver = new ChromeDriver();

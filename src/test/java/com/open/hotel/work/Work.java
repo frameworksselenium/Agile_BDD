@@ -1,33 +1,39 @@
 package com.open.hotel.work;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.HttpURLConnection;
+import java.util.Iterator;
+import java.util.List;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Work {
 
-    public static void main(String[] args){
+    private static WebDriver driver = null;
 
-        //WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver", "/Users/krishnareddymanubolu/Documents/WorkSpace/Agile_BDD/src/test/resources/drivers/chromedriver");
-        // Initialize the ChromeDriver instance
-        //ChromeOptions browserOptions = new ChromeOptions();
-        //browserOptions.addArguments("--remote-allow-origins=*");
-       // browserOptions.setBrowserVersion("latest");
-        WebDriver driver = new ChromeDriver();
+    public static void main(String[] args) {
 
-        // Now you can use 'driver' to automate browser actions
-        driver.get("https://www.example.com");
-
-        // Close the WebDriver session when done
-        driver.quit();
-
+        String homePage = "http://www.zlti.com";
+        String url = "";
+        HttpURLConnection huc = null;
+        int respCode = 200;
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized"); // Example option
+        WebDriver driver = new ChromeDriver(options);
+        driver.get(homePage);
+        List<WebElement> links = driver.findElements(By.xpath(("//*[@id='zlFooterMap']/div[2]/ul/li")));
+        Iterator<WebElement> it = links.iterator();
+        int counter = 1;
+        while(it.hasNext()){
+            WebElement link = driver.findElement(By.xpath(("//*[@id='zlFooterMap']/div[2]/ul/li[" + counter + "]/a")));
+            String linkNAme = link.getAttribute("href");
+            System.out.println(linkNAme);
+            counter = counter + 1;
+            link.click();
+            driver.navigate().back();
+        }
+        //driver.quit();
     }
 }
-
-
-
-
-
-

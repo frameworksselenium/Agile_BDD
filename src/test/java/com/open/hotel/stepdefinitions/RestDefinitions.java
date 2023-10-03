@@ -2,7 +2,6 @@ package com.open.hotel.stepdefinitions;
 
 import com.open.hotel.assertions.Assertions;
 import com.open.hotel.dataParsers.CSVData;
-import com.open.hotel.dataParsers.ExcelData;
 import com.open.hotel.dataParsers.TableData;
 import com.open.hotel.services.Payload;
 import com.open.hotel.services.RestServices;
@@ -21,7 +20,7 @@ public class RestDefinitions {
     CSVData csvData = new CSVData();
     Payload payLoad = new Payload();
     RestServices restServices = new RestServices();
-    ExcelData excelData = new ExcelData();
+    //ExcelData excelData = new ExcelData();
     Assertions assertions = new Assertions();
 
     //Post
@@ -56,11 +55,11 @@ public class RestDefinitions {
     @Given("Customer {string} Read the data from excel {string} and sheet {string} for testcase ID {string} and Create the JSON request using JSON template {string}")
     public void Create_JSON_request(String customerName, String excelFileName, String sheetName, String testCaseID, String template) throws IOException {
         VariableManager.getInstance().getVariables().setVar("customerName", customerName);
-        Map<String, String> data = this.excelData.readData(excelFileName, sheetName, "TestCaseid", testCaseID);
+        //Map<String, String> data = this.excelData.readData(excelFileName, sheetName, "TestCaseid", testCaseID);
 
-        String requestPayLoad = this.payLoad.payLoadPreparation(template, data);
+        //String requestPayLoad = this.payLoad.payLoadPreparation(template, data);
 
-        VariableManager.getInstance().getVariables().setVar("requestPayLoad", requestPayLoad);
+        //VariableManager.getInstance().getVariables().setVar("requestPayLoad", requestPayLoad);
 
     }
 
@@ -77,8 +76,8 @@ public class RestDefinitions {
     @Given("Customer {string} Read the data from excel {string} and sheet {string} for testcase ID {string}")
     public void Excel_Create_JSON_Get_request(String customerName, String excelFileName, String sheetName, String testCaseID) throws IOException {
         VariableManager.getInstance().getVariables().setVar("customerName", customerName);
-        HashMap<String, String> data = this.excelData.readData(excelFileName, sheetName, "TestCaseid", testCaseID);
-        VariableManager.getInstance().getVariables().setVar("data", data);
+        //HashMap<String, String> data = this.excelData.readData(excelFileName, sheetName, "TestCaseid", testCaseID);
+        //VariableManager.getInstance().getVariables().setVar("data", data);
 
     }
 
