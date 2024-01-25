@@ -19,9 +19,10 @@ public class Work {
         String url = "";
         HttpURLConnection huc = null;
         int respCode = 200;
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized"); // Example option
-        WebDriver driver = new ChromeDriver(options);
+        ChromeOptions browserOptions = new ChromeOptions();
+        browserOptions.setBinary("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
+
+        WebDriver driver = new ChromeDriver(browserOptions);
         driver.get(homePage);
         List<WebElement> links = driver.findElements(By.xpath(("//*[@id='zlFooterMap']/div[2]/ul/li")));
         Iterator<WebElement> it = links.iterator();

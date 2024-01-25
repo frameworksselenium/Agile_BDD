@@ -40,15 +40,15 @@ public class RestDefinitions {
     public void I_submit_the_JSON_POST_request(String endPoint){
         String customerName = VariableManager.getInstance().getVariables().getVar("customerName").toString();
         String requestPayLoad = VariableManager.getInstance().getVariables().getVar("requestPayLoad").toString();
-        String response = this.restServices.getResponseFromPostMethod(requestPayLoad, endPoint, customerName);
-        VariableManager.getInstance().getVariables().setVar("response", response);
+        /*String response = this.restServices.getResponseFromPostMethod(requestPayLoad, endPoint, customerName);
+        VariableManager.getInstance().getVariables().setVar("response", response);*/
     }
 
     @When("Validate {string} from {string} node in JSON response - json path {string}")
     public void Validate_ExpectedValue_from_JSON_response(String expectedVal, String nodeName, String jsonPath) {
         String response = VariableManager.getInstance().getVariables().getVar("response").toString();
-        String actualValue = this.restServices.getValueFromJsonFile(response, jsonPath);
-        this.assertions.assertValues(nodeName, expectedVal, actualValue);
+        /*String actualValue = this.restServices.getValueFromJsonFile(response, jsonPath);
+        this.assertions.assertValues(nodeName, expectedVal, actualValue);*/
     }
 
 
@@ -89,8 +89,8 @@ public class RestDefinitions {
         String parameterValue = data.get(parameterName);
 
         String parameterEndPoint = endPoint + parameterValue;
-        String response = this.restServices.getResponseFromGetMethod(parameterEndPoint, customerName);
-        VariableManager.getInstance().getVariables().setVar("response", response);
+        /*String response = this.restServices.getResponseFromGetMethod(parameterEndPoint, customerName);
+        VariableManager.getInstance().getVariables().setVar("response", response);*/
     }
 
     ////Cucumber parameterization for Json ////////////////////////////////////

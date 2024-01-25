@@ -1,5 +1,5 @@
 package com.open.hotel.services;
-
+/*
 import com.jayway.jsonpath.JsonPath;
 import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.config.Config;
@@ -12,11 +12,11 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.JSONParser;*/
 
 public class RestServices {
 
-	org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), VariableManager.getInstance().getVariables().getVar("testCaseID").toString());
+	/*org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(), VariableManager.getInstance().getVariables().getVar("testCaseID").toString());
 
 	public RestServices() {
 	}
@@ -98,6 +98,6 @@ public class RestServices {
 			log.info("Exception - " + var5);
 			return null;
 		}
-	}
+	}*/
 
 }

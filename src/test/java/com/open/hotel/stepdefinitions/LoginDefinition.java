@@ -39,6 +39,7 @@ public class LoginDefinition {
 		String buildId = Config.properties.getProperty("BuildId");
 		driver = ManagerDriver.getInstance().getDriver(ExecutionMode, browser, platformName, RemoteURL, testName, buildId);
 		VariableManager.getInstance().getVariables().setVar("driver", driver);
+		this.login = new Login();
 	}
 
 	@Given("User is able Launch the hotel application")

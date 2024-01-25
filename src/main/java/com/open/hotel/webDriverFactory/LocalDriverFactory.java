@@ -7,6 +7,7 @@ import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.threadVariables.VariableManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -51,15 +52,17 @@ public class LocalDriverFactory {
             prefs.put("profile.default_content_setting_values.automatic_downloads",1);
             prefs.put("download.default_directory", downloadFileFolder);
 
-            //ChromeOptions browserOptions = new ChromeOptions();
+            ChromeOptions browserOptions = new ChromeOptions();
+            browserOptions.setBinary("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
             //browserOptions.setExperimentalOption("prefs", prefs);
             //browserOptions.setPlatformName(PlatformName);
            // browserOptions.addArguments("--remote-allow-origins=*");
             //browserOptions.setBrowserVersion("latest");
             //WebDriverManager.chromedriver().setup();
             try {
-                //driver = new ChromeDriver(browserOptions);
-                driver = new ChromeDriver();
+                driver = new ChromeDriver(browserOptions);
+                //driver = new ChromeDriver();
+
                 driver.manage().window().maximize();
             } catch (Exception e) {
                 log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
