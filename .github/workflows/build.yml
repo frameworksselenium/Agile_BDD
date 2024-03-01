@@ -21,10 +21,14 @@ jobs:
 
       - name: Download and install Maven 3.6.2
         run: |
-            wget https://apache.osuosl.org/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.tar.gz
-            tar xf apache-maven-3.6.2-bin.tar.gz
-            sudo mv apache-maven-3.6.2 /opt/maven
-            sudo update-alternatives --install /usr/bin/mvn mvn /opt/maven/bin/mvn 1001
+          sudo apt-get update
+          sudo apt-get install -y maven
+          
+          # Download and extract Maven 3.6.3
+          wget https://apache.osuosl.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+          tar xf apache-maven-3.6.3-bin.tar.gz
+          sudo mv apache-maven-3.6.3 /opt/maven
+          sudo ln -s /opt/maven/bin/mvn /usr/local/bin/mvn
 
 
       - name: Verify Java and Maven versions
