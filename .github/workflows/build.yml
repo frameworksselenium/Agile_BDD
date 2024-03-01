@@ -30,14 +30,16 @@ jobs:
           sudo mv apache-maven-3.9.6 /opt/maven
           sudo ln -s /opt/maven/bin/mvn /usr/local/bin/mvn
 
-
       - name: Verify Java and Maven versions
         run: |
           java -version
           mvn -version
 
-      - name: Compile code
-        run: mvn compile
-
       - name: Run tests
         run: mvn test
+      # Load artifacts
+      - name: Load test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: target/cucumberReport
