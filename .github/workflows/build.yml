@@ -18,6 +18,9 @@ jobs:
           curl -s "https://get.sdkman.io" | bash
           source "$HOME/.sdkman/bin/sdkman-init.sh"
           sdk install java 19.3.0.fx-zulu
+          echo "sdkman_auto_answer=true" > ~/.sdkman/etc/config
+          echo "sdkman_auto_selfupdate=true" >> ~/.sdkman/etc/config
+          sdk selfupdate force
           sdk use java 19.3.0.fx-zulu
 
       - name: Download and install Maven 3.6.2
