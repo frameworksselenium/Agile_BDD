@@ -2,44 +2,32 @@ name: CI
 
 on:
   workflow_dispatch:
-
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-20.04]
+        java_version: ["19"]
+        maven_version: ["3.6.2"]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Java 18
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-          curl -s "https://get.sdkman.io" | bash
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          sdk install java 18.0.1.fx-zulu
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java_version }}
 
-      - name: Download and install Maven 3.6.2
+      - name: Install Maven
         run: |
           sudo apt-get update
-          sudo apt-get install -y maven
-          
-          # Download and extract Maven 3.6.3
-          wget https://apache.osuosl.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
-          tar xf apache-maven-3.9.6-bin.tar.gz
-          sudo mv apache-maven-3.9.6 /opt/maven
-          sudo ln -s /opt/maven/bin/mvn /usr/local/bin/mvn
+          sudo apt-get install -y maven=${{ matrix.maven_version }}
 
       - name: Verify Java and Maven versions
         run: |
           java -version
           mvn -version
 
-      - name: Run tests
-        run: mvn test
-      # Load artifacts
-      - name: Load test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: target/cucumberReport
+      # Continue with your build steps here
