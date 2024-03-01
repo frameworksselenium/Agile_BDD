@@ -52,7 +52,7 @@ public class UIUtils {
             WaitUntilClickable(element, Integer.valueOf(Config.properties.getProperty("LONGWAIT")));
             highlightElement(element);
             MouseMoveToElement(element);
-            element.clear();
+            //element.clear();
             element.sendKeys(value);
             if (elementName.equals("Password")) {
                 value = "";

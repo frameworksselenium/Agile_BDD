@@ -15,7 +15,7 @@ import java.util.List;
 		plugin={
 				"pretty", "json:target/cucumberReport/cucumber.json",
 		},
-		tags= "@Search",
+		tags= "@UI",
 		features = "src/test/resources/features",
 		glue={"com.open.hotel.stepdefinitions", "com.open.hotel.hooks"},
 		//strict = true,
@@ -31,6 +31,7 @@ public class TestNGRunner extends AbstractTestNGCucumberTests {
 
 	@BeforeSuite()
 	public void setup(){
+
 		Config.createFolder(Config.properties.getProperty("resultFolder"));
 		Config.createFolder(Config.properties.getProperty("resultFolderName"));
 	}

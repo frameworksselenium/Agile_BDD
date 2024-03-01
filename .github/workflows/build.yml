@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [CH, FF, IE]  # Add more browsers as needed
+        environment: [QA, PROD]  # Add more environments as needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Set up Maven
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'maven'
+          java-version: '3.6.2'
+
+      - name: Compile and Clean
+        run: mvn clean compile
+
+      - name: UITest
+        run: mvn test -DEnvironment=${{ matrix.environment }} -DBrowser=${{ matrix.browser }}
+        # For using specific parameters in Maven, uncomment the following line:
+        # run: mvn test -DEnvironment=${{ matrix.environment }} -DBrowser=${{ matrix.browser }} -DExecutionMode=SauceLabs -DRemoteType=WINDOWS -DRemoteURL=https://oauth-kmanubolu-5e40b:10aa25f6-fbd7-4641-8c81-32a10d1c39af@ondemand.us-west-1.saucelabs.com:443/wd/hub -Dcucumber.filter.tags=UI -Dtestng.threadcount=2
+
+      - name: Cucumber Reports
+        run: cucumber --buildStatus=UNSTABLE --fileIncludePattern='**/cucumber.json' --jsonReportDirectory='target'
