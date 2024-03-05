@@ -27,10 +27,10 @@ public class ManagerDriver {
                 driver = RemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
                 break;
             case "SauceLabsRemote":
-               // driver = SauceLabsRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL,testName, buildId);
+                driver = SauceLabsRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL,testName, buildId);
                 break;
             case "SauceLabsMobile":
-                //driver = SauceLabsMobileRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
+                driver = SauceLabsMobileRemoteDriverFactory.getInstance().createNewDriver(RemoteURL, testName, buildId);
                 break;
             case "AWSDeviceFarm":
                 driver = AWSDeviceFarmDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);

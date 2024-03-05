@@ -112,6 +112,12 @@
 		   <version>20180130</version>
 	   </dependency>
 
+	   <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+	   <dependency>
+		   <groupId>io.appium</groupId>
+		   <artifactId>java-client</artifactId>
+		   <version>9.0.0</version>
+	   </dependency>
 	   <dependency>
 		   <groupId>com.googlecode.json-simple</groupId>
 		   <artifactId>json-simple</artifactId>
