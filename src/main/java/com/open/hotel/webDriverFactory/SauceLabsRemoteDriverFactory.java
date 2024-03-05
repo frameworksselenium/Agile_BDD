@@ -39,15 +39,6 @@ public class SauceLabsRemoteDriverFactory {
                 throw new RuntimeException(e);
             }
         }
-        if (browser.toUpperCase().contains("FF")) {
-
-        }
-        if (browser.toUpperCase().contains("ED")) {
-
-        }
-        if (browser.toUpperCase().contains("SF")) {
-
-        }
         return driver;
     }
 
