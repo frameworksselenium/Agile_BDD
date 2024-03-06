@@ -2,6 +2,7 @@ package com.open.hotel.stepdefinitions;
 
 import com.open.hotel.config.Config;
 import com.open.hotel.pages.Login;
+import com.open.hotel.pages.MobileLogin;
 import com.open.hotel.threadVariables.VariableManager;
 import com.open.hotel.webDriverFactory.ManagerDriver;
 import io.cucumber.java.en.Given;
@@ -56,4 +57,11 @@ public class LoginDefinition {
 	public void logout_application() throws Exception {
 		login.LogOut();
 	}
+
+	@When("User enters the user name and password and Click LogIn button")
+	public void user_enters_and_password() throws Exception {
+		MobileLogin mobilrLogin = new MobileLogin();
+		mobilrLogin.login();
+	}
+
 }

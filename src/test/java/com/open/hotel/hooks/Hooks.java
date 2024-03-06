@@ -27,7 +27,7 @@ public class Hooks {
 	public void afterScenario(Scenario scenario) throws ParseException {
 		WebDriver driver = (WebDriver) VariableManager.getInstance().getVariables().getVar("driver");
 		if (driver != null) {
-			driver.close();
+			//driver.close();
 			driver.quit();
 		}
 	}

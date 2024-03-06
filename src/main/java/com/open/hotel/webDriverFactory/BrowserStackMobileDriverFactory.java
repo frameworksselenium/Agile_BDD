@@ -41,6 +41,11 @@ public class BrowserStackMobileDriverFactory {
         String Mobile_Appium_Version = Config.properties.getProperty("Mobile_Appium_Version");
         String Mobile_Appium_App = Config.properties.getProperty("Mobile_Appium_App");
 
+        String endPoint = Config.properties.getProperty("FileUpload_url");
+        String userName = Config.properties.getProperty("UserName");
+        String key = Config.properties.getProperty("Key");
+
+
         AppiumDriver driver = null;
         MutableCapabilities caps = null;
         MutableCapabilities sauceOptions = null;
@@ -121,15 +126,12 @@ public class BrowserStackMobileDriverFactory {
                     } catch (MalformedURLException e) {
                         throw new RuntimeException(e);
                     }*/
-                    //String username = "";
-                    //String key = "";
-                    String url1 = "https://" + username + ":" + key +"@hub-cloud.browserstack.com/wd/hub";
 
-                    String endPoint = "https://api-cloud.browserstack.com/app-automate/upload";
-                    String filePath = "/Users/krishnareddymanubolu/Documents/MobileWorkSpace/mobile-test/src/test/resources/apps/iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa";
+
+                    String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/" + Mobile_Appium_App;
                     String custID = new File(filePath).getName().replaceAll(".app| .ipa| .apk", "");
 
-                    Response response = given().auth().preemptive().basic(username, key)
+                    Response response = given().auth().preemptive().basic(userName, key)
                             .multiPart("file", new File(filePath), "multipart/form-data")
                             .multiPart("custom_id", custID)
                             .when().post(endPoint).then().extract().response();
@@ -142,34 +144,10 @@ public class BrowserStackMobileDriverFactory {
                     capabilities.setCapability("appium:platformVersion","15");
                     capabilities.setCapability("appium:app",app_url);
 
-                    driver = new IOSDriver(new URL(url1), capabilities);
+                    driver = new IOSDriver(new URL(RemoteURL), capabilities);
                     System.out.println("Driver launched");
 
-                    System.out.println("Entering credentials");
 
-
-                    WebElement username1 = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("test-Username")));
-                    username1.click();
-                    username1.sendKeys("standard_user");
-
-                    WebElement password = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("test-Password")));
-                    password.click();
-                    password.sendKeys("secret_sauce");
-
-                    WebElement login = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("test-LOGIN")));
-                    login.click();
-
-                    /*WebElement username1 = wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("test-Username")));
-                    username1.click();
-                    username1.sendKeys("standard_user");
-                    WebElement password = driver.findElementByAccessibilityId("test-Password");
-                    password.click();
-                    password.sendKeys("secret_sauce");
-                    WebElement image = driver.findElementByXPath("//android.widget.ScrollView[@content-desc=\"test-Login\"]/android.view.ViewGroup/android.widget.ImageView[1]");
-                    image.click();
-                    WebElement login = wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("test-LOGIN")));
-                    login.click();*/
-                    driver.quit();
                     break;
                 default:
 
