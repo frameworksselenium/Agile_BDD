@@ -1,0 +1,183 @@
+package com.open.hotel.webDriverFactory;
+
+import com.open.hotel.config.Config;
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import java.io.File;
+import java.net.URL;
+import java.time.Duration;
+
+import io.restassured.response.Response;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static io.restassured.RestAssured.given;
+
+public class BrowserStackMobileDriverFactory {
+
+    private static BrowserStackMobileDriverFactory instance = new BrowserStackMobileDriverFactory();
+
+    private BrowserStackMobileDriverFactory() {
+    }
+
+    public static BrowserStackMobileDriverFactory getInstance() {
+        return instance;
+    }
+
+    public WebDriver createNewDriver(String RemoteURL, String testName, String buildId) {
+
+        String Mobile_Application_Type = Config.properties.getProperty("Mobile_Application_Type");
+        String Mobile_PlatformName = Config.properties.getProperty("Mobile_PlatformName");
+        String Mobile_BrowserName = Config.properties.getProperty("Mobile_BrowserName");
+        String Mobile_Appium_deviceName = Config.properties.getProperty("Mobile_Appium_deviceName");
+        String Mobile_Appium_PlatformVersion = Config.properties.getProperty("Mobile_Appium_PlatformVersion");
+        String Mobile_Appium_AutomationName = Config.properties.getProperty("Mobile_Appium_AutomationName");
+        String Mobile_Appium_Version = Config.properties.getProperty("Mobile_Appium_Version");
+        String Mobile_Appium_App = Config.properties.getProperty("Mobile_Appium_App");
+
+        AppiumDriver driver = null;
+        MutableCapabilities caps = null;
+        MutableCapabilities sauceOptions = null;
+        URL url = null;
+        try {
+            switch (Mobile_Application_Type) {
+
+                case "Android_Web":
+                    caps = new MutableCapabilities();
+                    caps.setCapability("platformName", Mobile_PlatformName);
+                    caps.setCapability("browserName", Mobile_BrowserName);
+                    caps.setCapability("appium:deviceName", Mobile_Appium_deviceName);
+                    caps.setCapability("appium:platformVersion", Mobile_Appium_PlatformVersion);
+                    caps.setCapability("appium:automationName", Mobile_Appium_AutomationName);
+                    sauceOptions = new MutableCapabilities();
+                    sauceOptions.setCapability("appiumVersion", Mobile_Appium_Version);
+                    sauceOptions.setCapability("build", buildId);
+                    sauceOptions.setCapability("name", testName);
+                    caps.setCapability("sauce:options", sauceOptions);
+
+                    url = new URL(RemoteURL);
+                    driver = new AndroidDriver(url, caps);
+                    driver.manage().window().maximize();
+                    break;
+
+                case "ISO_Web":
+                    caps = new MutableCapabilities();
+                    caps.setCapability("platformName", Mobile_PlatformName);
+                    caps.setCapability("browserName", Mobile_BrowserName);
+                    caps.setCapability("appium:deviceName", Mobile_Appium_deviceName);
+                    caps.setCapability("appium:platformVersion", Mobile_Appium_PlatformVersion);
+                    caps.setCapability("appium:automationName", Mobile_Appium_AutomationName);
+                    sauceOptions = new MutableCapabilities();
+                    sauceOptions.setCapability("appiumVersion", Mobile_Appium_Version);
+                    sauceOptions.setCapability("build", buildId);
+                    sauceOptions.setCapability("name", testName);
+                    caps.setCapability("sauce:options", sauceOptions);
+
+                    url = new URL(RemoteURL);
+                    driver = new IOSDriver(url, caps);
+                    driver.manage().window().maximize();
+                    break;
+
+                case "Android_Native":
+                    caps = new MutableCapabilities();
+                    caps.setCapability("platformName", Mobile_PlatformName);
+                    caps.setCapability("appium:app", "storage:" + Mobile_Appium_App); // The filename of the mobile app
+                    caps.setCapability("appium:deviceName", Mobile_Appium_deviceName);
+                    caps.setCapability("appium:platformVersion", Mobile_Appium_PlatformVersion);
+                    caps.setCapability("appium:automationName", Mobile_Appium_AutomationName);
+                    sauceOptions = new MutableCapabilities();
+                    sauceOptions.setCapability("appiumVersion", Mobile_Appium_Version);
+                    sauceOptions.setCapability("build", buildId);
+                    sauceOptions.setCapability("name", testName);
+                    caps.setCapability("browserstack:options", sauceOptions);
+
+                    url = new URL(RemoteURL);
+                    driver = new AndroidDriver(url, caps);
+                    driver.manage().window().maximize();
+                    break;
+
+                case "IOS_Native":
+                    /*caps = new MutableCapabilities();
+                    caps.setCapability("platformName", Mobile_PlatformName);
+                    caps.setCapability("appium:app", "storage:" + Mobile_Appium_App); // The filename of the mobile app
+                    caps.setCapability("appium:deviceName", Mobile_Appium_deviceName);
+                    caps.setCapability("appium:platformVersion", Mobile_Appium_PlatformVersion);
+                    caps.setCapability("appium:automationName", Mobile_Appium_AutomationName);
+                    sauceOptions = new MutableCapabilities();
+                    sauceOptions.setCapability("appiumVersion", Mobile_Appium_Version);
+                    sauceOptions.setCapability("build", buildId);
+                    sauceOptions.setCapability("name", testName);
+                    caps.setCapability("sauce:options", sauceOptions);
+
+                    try {
+                        url = new URL(RemoteURL);
+                        driver = new IOSDriver(url, caps);
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }*/
+                    //String username = "";
+                    //String key = "";
+                    String url1 = "https://" + username + ":" + key +"@hub-cloud.browserstack.com/wd/hub";
+
+                    String endPoint = "https://api-cloud.browserstack.com/app-automate/upload";
+                    String filePath = "/Users/krishnareddymanubolu/Documents/MobileWorkSpace/mobile-test/src/test/resources/apps/iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa";
+                    String custID = new File(filePath).getName().replaceAll(".app| .ipa| .apk", "");
+
+                    Response response = given().auth().preemptive().basic(username, key)
+                            .multiPart("file", new File(filePath), "multipart/form-data")
+                            .multiPart("custom_id", custID)
+                            .when().post(endPoint).then().extract().response();
+
+                    String app_url = response.jsonPath().get("app_url");
+                    System.out.println("Initializing capabilities");
+                    DesiredCapabilities capabilities = new DesiredCapabilities();
+                    capabilities.setCapability("appium:deviceName","iPhone 13");
+                    capabilities.setCapability("platformName", "iOS");
+                    capabilities.setCapability("appium:platformVersion","15");
+                    capabilities.setCapability("appium:app",app_url);
+
+                    driver = new IOSDriver(new URL(url1), capabilities);
+                    System.out.println("Driver launched");
+
+                    System.out.println("Entering credentials");
+
+
+                    WebElement username1 = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("test-Username")));
+                    username1.click();
+                    username1.sendKeys("standard_user");
+
+                    WebElement password = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("test-Password")));
+                    password.click();
+                    password.sendKeys("secret_sauce");
+
+                    WebElement login = (WebElement) new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("test-LOGIN")));
+                    login.click();
+
+                    /*WebElement username1 = wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("test-Username")));
+                    username1.click();
+                    username1.sendKeys("standard_user");
+                    WebElement password = driver.findElementByAccessibilityId("test-Password");
+                    password.click();
+                    password.sendKeys("secret_sauce");
+                    WebElement image = driver.findElementByXPath("//android.widget.ScrollView[@content-desc=\"test-Login\"]/android.view.ViewGroup/android.widget.ImageView[1]");
+                    image.click();
+                    WebElement login = wait.until(ExpectedConditions.visibilityOfElementLocated(new MobileBy.ByAccessibilityId("test-LOGIN")));
+                    login.click();*/
+                    driver.quit();
+                    break;
+                default:
+
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        return driver;
+    }
+
+}

@@ -35,6 +35,9 @@ public class ManagerDriver {
             case "AWSDeviceFarm":
                 driver = AWSDeviceFarmDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
                 break;
+            case "BrowserStackMobile":
+                driver = BrowserStackMobileDriverFactory.getInstance().createNewDriver(RemoteURL, testName, buildId);
+                break;
             default:
                 throw new RuntimeException(String.format("Provide Correct Execution Mode"));
         }
