@@ -33,7 +33,6 @@ public class AWSDeviceFarmDriverFactory {
         RemoteWebDriver driver = null;
         if (browser.toUpperCase().contains("CH")) {
             //String myProjectARN = "arn:aws:devicefarm:us-west-2:788877024129:testgrid-project:6f526502-978f-4f73-94ec-997106844b4f";
-
             DeviceFarmClient client  = DeviceFarmClient.builder().region(Region.US_WEST_2).build();
             CreateTestGridUrlRequest request = CreateTestGridUrlRequest.builder()
                     .expiresInSeconds(300)
@@ -49,8 +48,8 @@ public class AWSDeviceFarmDriverFactory {
 
             //DesiredCapabilities desired_capabilities = DesiredCapabilities.chrome();
             ChromeOptions browserOptions = new ChromeOptions();
-            //browserOptions.setPlatformName(PlatformName);
-            //browserOptions.setBrowserVersion("latest");
+            browserOptions.setPlatformName("windows");
+            browserOptions.setBrowserVersion("latest");
             // You can now pass this URL into RemoteWebDriver.
             driver = new RemoteWebDriver(testGridUrl, browserOptions);
         }

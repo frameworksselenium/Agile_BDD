@@ -15,7 +15,7 @@ import java.util.List;
 		plugin={
 				"pretty", "json:target/cucumberReport/cucumber.json",
 		},
-		tags= "@Mobile",
+		tags= "@Login",
 		features = "src/test/resources/features",
 		glue={"com.open.hotel.stepdefinitions", "com.open.hotel.hooks"},
 		//strict = true,

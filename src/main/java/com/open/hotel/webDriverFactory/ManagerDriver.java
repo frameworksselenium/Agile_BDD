@@ -38,6 +38,9 @@ public class ManagerDriver {
             case "BrowserStackMobile":
                 driver = BrowserStackMobileDriverFactory.getInstance().createNewDriver(RemoteURL, testName, buildId);
                 break;
+            case "BrowserStackRemote":
+                driver = BrowserStackRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL);
+                break;
             default:
                 throw new RuntimeException(String.format("Provide Correct Execution Mode"));
         }
