@@ -69,7 +69,6 @@ public class AWSDeviceFarmDriverFactory {
                 browserOptions.setPlatformName("windows");
                 browserOptions.setBrowserVersion("latest");
                 browserOptions.setCapability("ms:edgeChromium", true);
-
                 try {
                     URL url = new URL(RemoteURL);
                     driver = new RemoteWebDriver(url, browserOptions);

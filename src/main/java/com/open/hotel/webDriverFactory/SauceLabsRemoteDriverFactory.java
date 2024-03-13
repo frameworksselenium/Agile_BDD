@@ -30,12 +30,9 @@ public class SauceLabsRemoteDriverFactory {
             browserOptions.setPlatformName("Windows 11");
             browserOptions.setBrowserVersion("latest");
             Map<String, Object> sauceOptions = new HashMap<>();
-            //sauceOptions.put("username", "oauth-kmanubolu-810c2");
-            //sauceOptions.put("accessKey", "*****987e");
             sauceOptions.put("build", "1");
             sauceOptions.put("name", "My Test");
             browserOptions.setCapability("sauce:options", sauceOptions);
-
             try {
                 URL url = new URL(RemoteURL);
                 driver = new RemoteWebDriver(url, browserOptions);
@@ -49,8 +46,6 @@ public class SauceLabsRemoteDriverFactory {
             browserOptions.setPlatformName("Windows 11");
             browserOptions.setBrowserVersion("latest");
             Map<String, Object> sauceOptions = new HashMap<>();
-            //sauceOptions.put("username", "oauth-kmanubolu-810c2");
-            //sauceOptions.put("accessKey", "*****987e");
             sauceOptions.put("build", "1");
             sauceOptions.put("name", "My Test");
             browserOptions.setCapability("sauce:options", sauceOptions);
@@ -67,8 +62,6 @@ public class SauceLabsRemoteDriverFactory {
             browserOptions.setPlatformName("Windows 11");
             browserOptions.setBrowserVersion("latest");
             Map<String, Object> sauceOptions = new HashMap<>();
-            //sauceOptions.put("username", "oauth-kmanubolu-810c2");
-            //sauceOptions.put("accessKey", "*****987e");
             sauceOptions.put("build", "1");
             sauceOptions.put("name", "My Test");
             browserOptions.setCapability("sauce:options", sauceOptions);
@@ -85,8 +78,6 @@ public class SauceLabsRemoteDriverFactory {
             browserOptions.setPlatformName("macOS 13");
             browserOptions.setBrowserVersion("latest");
             Map<String, Object> sauceOptions = new HashMap<>();
-            //sauceOptions.put("username", "oauth-kmanubolu-810c2");
-            //sauceOptions.put("accessKey", "*****987e");
             sauceOptions.put("build", "1");
             sauceOptions.put("name", "My Test");
             browserOptions.setCapability("sauce:options", sauceOptions);
