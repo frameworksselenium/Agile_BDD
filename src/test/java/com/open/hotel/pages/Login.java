@@ -50,7 +50,7 @@ public class Login  extends UIUtils {
 
 	public void LogOut() throws Exception {
 
-		clickElement(LogOut, "LogOut", this.pageName);
+		//clickElement(LogOut, "LogOut", this.pageName);
 	}
 
 }

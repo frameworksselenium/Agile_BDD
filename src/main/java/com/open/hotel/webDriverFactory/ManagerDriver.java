@@ -16,30 +16,36 @@ public class ManagerDriver {
         return instance;
     }
 
-    public WebDriver getDriver(String ExecutionMode, String browser, String PlatformName, String RemoteURL,
+    public WebDriver getDriver(String ExecutionMode, String browser, String RemoteURL,
 							   String testName, String buildId) throws MalformedURLException {
         WebDriver driver = null;
         switch (ExecutionMode) {
             case "Local":
-                driver = LocalDriverFactory.getInstance().createNewDriver(browser, PlatformName);
+                driver = LocalDriverFactory.getInstance().createNewDriver(browser);
                 break;
             case "Remote":
-                driver = RemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
-                break;
-            case "SauceLabsRemote":
-                driver = SauceLabsRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL,testName, buildId);
-                break;
-            case "SauceLabsMobile":
-                driver = SauceLabsMobileRemoteDriverFactory.getInstance().createNewDriver(RemoteURL, testName, buildId);
+                driver = RemoteDriverFactory.getInstance().createNewDriver(browser, RemoteURL);
                 break;
             case "AWSDeviceFarm":
-                driver = AWSDeviceFarmDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL, testName, buildId);
+                driver = AWSDeviceFarmDriverFactory.getInstance().createNewDriver(browser, RemoteURL);
                 break;
-            case "BrowserStackMobile":
-                driver = BrowserStackMobileDriverFactory.getInstance().createNewDriver(RemoteURL, testName, buildId);
+            case "BrowserStackMobileNative":
+                driver = BrowserStackMobileNativeDriverFactory.getInstance().createNewDriver(RemoteURL);
+                break;
+            case "BrowserStackMobileBrowser":
+                driver = BrowserStackMobileBrowserDriverFactory.getInstance().createNewDriver(RemoteURL);
                 break;
             case "BrowserStackRemote":
-                driver = BrowserStackRemoteDriverFactory.getInstance().createNewDriver(browser, PlatformName, RemoteURL);
+                driver = BrowserStackRemoteDriverFactory.getInstance().createNewDriver(browser, RemoteURL);
+                break;
+            case "SauceLabsMobileNative":
+                driver = SauceLabsMobileNativeDriverFactory.getInstance().createNewDriver(RemoteURL);
+                break;
+            case "SauceLabsMobileBrowser":
+                driver = SauceLabsMobileBrowserDriverFactory.getInstance().createNewDriver(RemoteURL);
+                break;
+            case "SauceLabsRemote":
+                driver = SauceLabsRemoteDriverFactory.getInstance().createNewDriver(browser, RemoteURL);
                 break;
             default:
                 throw new RuntimeException(String.format("Provide Correct Execution Mode"));

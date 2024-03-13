@@ -27,10 +27,6 @@ public class LoginDefinition {
 		if (ExecutionMode == null) {
 			ExecutionMode = Config.properties.getProperty("ExecutionMode");
 		}
-		String platformName = System.getProperty("PlatformName");
-		if (platformName == null) {
-			platformName = Config.properties.getProperty("PlatformName");
-		}
 		String RemoteURL = System.getProperty("RemoteURL");
 		if (RemoteURL == null) {
 			RemoteURL = Config.properties.getProperty("RemoteURL");
@@ -38,7 +34,7 @@ public class LoginDefinition {
 		String testCaseID = VariableManager.getInstance().getVariables().getVar("testCaseID").toString();
 		String testName = Config.properties.getProperty("BuildName") + "- Test Case Id : '" + testCaseID + "'";
 		String buildId = Config.properties.getProperty("BuildId");
-		driver = ManagerDriver.getInstance().getDriver(ExecutionMode, browser, platformName, RemoteURL, testName, buildId);
+		driver = ManagerDriver.getInstance().getDriver(ExecutionMode, browser, RemoteURL, testName, buildId);
 		VariableManager.getInstance().getVariables().setVar("driver", driver);
 		this.login = new Login();
 	}

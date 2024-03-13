@@ -4,36 +4,30 @@ import com.open.hotel.config.Config;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.restassured.response.Response;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
 import java.io.File;
 import java.net.URL;
-import io.restassured.response.Response;
+
 import static io.restassured.RestAssured.given;
 
-public class BrowserStackMobileDriverFactory {
+public class BrowserStackMobileNativeDriverFactory {
 
-    private static BrowserStackMobileDriverFactory instance = new BrowserStackMobileDriverFactory();
+    private static BrowserStackMobileNativeDriverFactory instance = new BrowserStackMobileNativeDriverFactory();
 
-    private BrowserStackMobileDriverFactory() {
+    private BrowserStackMobileNativeDriverFactory() {
     }
 
-    public static BrowserStackMobileDriverFactory getInstance() {
+    public static BrowserStackMobileNativeDriverFactory getInstance() {
         return instance;
     }
 
-    public WebDriver createNewDriver(String RemoteURL, String testName, String buildId) {
+    public WebDriver createNewDriver(String RemoteURL) {
 
         String Mobile_Application_Type = Config.properties.getProperty("Mobile_Application_Type");
-        String Mobile_PlatformName = Config.properties.getProperty("Mobile_PlatformName");
-        String Mobile_BrowserName = Config.properties.getProperty("Mobile_BrowserName");
-        String Mobile_Appium_deviceName = Config.properties.getProperty("Mobile_Appium_deviceName");
-        String Mobile_Appium_PlatformVersion = Config.properties.getProperty("Mobile_Appium_PlatformVersion");
-        String Mobile_Appium_AutomationName = Config.properties.getProperty("Mobile_Appium_AutomationName");
-        String Mobile_Appium_Version = Config.properties.getProperty("Mobile_Appium_Version");
-        String Mobile_Appium_App = Config.properties.getProperty("Mobile_Appium_App");
 
         String endPoint = Config.properties.getProperty("FileUpload_url");
         String userName = Config.properties.getProperty("UserName");
@@ -43,32 +37,7 @@ public class BrowserStackMobileDriverFactory {
         URL url = null;
         try {
             switch (Mobile_Application_Type) {
-
-                case "Android_Web":
-                    caps = new MutableCapabilities();
-                    caps.setCapability("appium:browserName", "chrome");
-                    caps.setCapability("appium:deviceName", "Samsung Galaxy S23 Ultra");
-                    caps.setCapability("appium:platformVersion", "13.0");
-                    caps.setCapability("platformName", "android");
-
-                    url = new URL(RemoteURL);
-                    driver = new AndroidDriver(url, caps);
-                    driver.manage().window().maximize();
-                    break;
-
-                case "ISO_Web":
-                    caps = new MutableCapabilities();
-                    caps.setCapability("appium:browserName", "safari");
-                    caps.setCapability("appium:deviceName", "iPhone 15 Pro Max");
-                    caps.setCapability("appium:platformVersion", "17");
-                    caps.setCapability("platformName", "android");
-
-                    url = new URL(RemoteURL);
-                    driver = new IOSDriver(url, caps);
-                    driver.manage().window().maximize();
-                    break;
-
-                case "Android_Native":
+                case "Mobile_Android_Native":
                     String filePath1 = System.getProperty("user.dir") + "/src/test/resources/apps/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
                     String custID1 = new File(filePath1).getName().replaceAll(".app| .ipa| .apk", "");
 
@@ -89,7 +58,7 @@ public class BrowserStackMobileDriverFactory {
 
                     break;
 
-                case "IOS_Native":
+                case "Mobile_IOS_Native":
                     String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa";
                     String custID = new File(filePath).getName().replaceAll(".app| .ipa| .apk", "");
 

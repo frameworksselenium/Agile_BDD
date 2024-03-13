@@ -27,13 +27,12 @@ public class RemoteDriverFactory {
         return instance;
     }
 
-    public WebDriver createNewDriver(String browser, String PlatformName, String RemoteURL, String testName,
-                                     String buildId) {
+    public WebDriver createNewDriver(String browser, String RemoteURL) {
 
         RemoteWebDriver driver = null;
         if (browser.toUpperCase().contains("CH")) {
             ChromeOptions browserOptions = new ChromeOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 URL url = new URL(RemoteURL);
@@ -46,7 +45,7 @@ public class RemoteDriverFactory {
         }
         if (browser.toUpperCase().contains("FF")) {
             FirefoxOptions browserOptions = new FirefoxOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 URL url = new URL(RemoteURL);
@@ -59,7 +58,7 @@ public class RemoteDriverFactory {
         }
         if (browser.toUpperCase().contains("ED")) {
             EdgeOptions browserOptions = new EdgeOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 URL url = new URL(RemoteURL);
@@ -72,7 +71,7 @@ public class RemoteDriverFactory {
         }
         if (browser.toUpperCase().contains("SF")) {
             SafariOptions browserOptions = new SafariOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 URL url = new URL(RemoteURL);

@@ -33,7 +33,7 @@ public class LocalDriverFactory {
         return instance;
     }
 
-    public WebDriver createNewDriver(String browser, String PlatformName) {
+    public WebDriver createNewDriver(String browser) {
         WebDriver driver = null;
         if (browser.toUpperCase().contains("CH")) {
             String downloadFolderPath = System.getProperty("user.dir") + "//target//DownloadFiles";
@@ -62,7 +62,6 @@ public class LocalDriverFactory {
             try {
                 driver = new ChromeDriver(browserOptions);
                 //driver = new ChromeDriver();
-
                 driver.manage().window().maximize();
             } catch (Exception e) {
                 log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
@@ -71,7 +70,7 @@ public class LocalDriverFactory {
         }
         if (browser.toUpperCase().contains("FF")) {
             FirefoxOptions browserOptions = new FirefoxOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 driver = new FirefoxDriver();
@@ -83,7 +82,7 @@ public class LocalDriverFactory {
         }
         if (browser.toUpperCase().contains("ED")) {
             EdgeOptions browserOptions = new EdgeOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 driver = new EdgeDriver();
@@ -95,7 +94,7 @@ public class LocalDriverFactory {
         }
         if (browser.toUpperCase().contains("SF")) {
             SafariOptions browserOptions = new SafariOptions();
-            browserOptions.setPlatformName(PlatformName);
+            browserOptions.setPlatformName("windows");
             browserOptions.setBrowserVersion("latest");
             try {
                 driver = new SafariDriver();
