@@ -1,22 +1,21 @@
 package com.open.hotel.services;
 
-import java.io.FileReader;
-import java.util.Map;
-import java.util.Properties;
-
+import com.jayway.jsonpath.JsonPath;
 import com.open.hotel.config.Config;
 import com.open.hotel.threadVariables.VariableManager;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import com.jayway.jsonpath.JsonPath;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import net.minidev.json.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-public class PurchaseOrderSearch extends BaseService {
+import java.io.FileReader;
+import java.util.Map;
+import java.util.Properties;
+
+public class GetUsers extends BaseService {
 
     JSONObject jsonObject = null;
     String EndPoint;
@@ -25,12 +24,12 @@ public class PurchaseOrderSearch extends BaseService {
     JSONObject responseJSON;
     String payload = null;
 
-    public PurchaseOrderSearch() {
+    public GetUsers() {
         super();
         this.EndPoint = prop.getProperty("WMS_PurchaseOrder_Search_EndPoint");
     }
 
-    public PurchaseOrderSearch getPayload() {
+    public GetUsers getPayload() {
         try {
             Properties prop = Config.properties;
             String jsonFilePath = System.getProperty("user.dir") + "//src//test/resources//templates//" + "PurchaseOrderSearch.json";
@@ -43,7 +42,7 @@ public class PurchaseOrderSearch extends BaseService {
         return this;
     }
 
-    public PurchaseOrderSearch updatePayload(String poNumber) {
+    public GetUsers updatePayload(String poNumber) {
         try {
             JsonPath.parse(jsonObject).set("$.Query", "PurchaseOrderId in ('" + poNumber + "')");
             payload = jsonObject.toJSONString();
@@ -54,7 +53,7 @@ public class PurchaseOrderSearch extends BaseService {
         return this;
     }
 
-    public PurchaseOrderSearch send() {
+    public GetUsers send() {
         Map<String, String> header = buildHeaderMap();
         try {
             RequestSpecification rsp = RestAssured.given().relaxedHTTPSValidation().baseUri(baseURL);
@@ -71,12 +70,12 @@ public class PurchaseOrderSearch extends BaseService {
         return this;
     }
 
-    public PurchaseOrderSearch showPayload() {
+    public GetUsers showPayload() {
         assertions.getLogger().info("======== Request : " + payload);
         return this;
     }
 
-    public PurchaseOrderSearch showResponse() {
+    public GetUsers sawdwahowResponse() {
         assertions.getLogger().info("======== Response : " + response.getBody().asString());
         return this;
     }

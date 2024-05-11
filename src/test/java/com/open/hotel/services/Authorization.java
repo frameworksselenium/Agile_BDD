@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.parser.ParseException;
 
-public class Authorization extends Base {
+public class Authorization extends BaseService {
 
     String AuthEndPoint;
     String grant_type;

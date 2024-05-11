@@ -2,6 +2,7 @@ package com.open.hotel.runner;
 
 import com.open.hotel.config.Config;
 import com.open.hotel.report.Report;
+
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;

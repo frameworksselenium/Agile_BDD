@@ -1,6 +1,7 @@
 package com.open.hotel.work;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import org.openqa.selenium.By;
@@ -15,6 +16,7 @@ public class Work {
 
     public static void main(String[] args) {
 
+
         String homePage = "http://www.zlti.com";
         String url = "";
         HttpURLConnection huc = null;
@@ -24,6 +26,9 @@ public class Work {
 
         WebDriver driver = new ChromeDriver(browserOptions);
         driver.get(homePage);
+
+
+
         List<WebElement> links = driver.findElements(By.xpath(("//*[@id='zlFooterMap']/div[2]/ul/li")));
         Iterator<WebElement> it = links.iterator();
         int counter = 1;

@@ -23,6 +23,12 @@ public class ManagerDriver {
             case "Local":
                 driver = LocalDriverFactory.getInstance().createNewDriver(browser);
                 break;
+            case "LocalMobileBrowser":
+                driver = LocalMobileBrowserDriverFactory.getInstance().createNewDriver(browser);
+                break;
+            case "LocalMobileNative":
+                driver = LocalMobileNativeDriverFactory.getInstance().createNewDriver(RemoteURL);
+                break;
             case "Remote":
                 driver = RemoteDriverFactory.getInstance().createNewDriver(browser, RemoteURL);
                 break;

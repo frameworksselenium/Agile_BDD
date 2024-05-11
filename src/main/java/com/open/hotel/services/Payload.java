@@ -21,7 +21,8 @@ public class Payload {
        BufferedReader bReader = null;
        FileReader reader = null;
        try {
-           String sourcePath = System.getProperty("user.dir") + "\\src\\test\\resources\\templates\\" + requestTemplateName + ".txt";
+           ///Users/krishnareddymanubolu/Documents/WorkSpace/Agile_BDD/src/test/resources/templates/CreateUser_Request.txt
+           String sourcePath = System.getProperty("user.dir") + "/src/test/resources/templates/" + requestTemplateName + ".txt";
            reader = new FileReader(sourcePath);
            bReader = new BufferedReader(reader);
            String newLine = System.lineSeparator();
@@ -49,6 +50,7 @@ public class Payload {
            }
            log.info("XML Request After replacing values : " + val);
        }catch (Exception e){
+           System.out.println(e.getMessage());
            new RuntimeException("Not able to replace values");
        }
        return val;

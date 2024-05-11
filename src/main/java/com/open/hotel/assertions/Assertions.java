@@ -41,6 +41,7 @@ public class Assertions {
             scenario.attach(failString, "text/plain",
                     DateTimeFormatter.ofPattern("M-dd-yyyy hh:mm:ss").format(LocalDateTime.now()));
             log.info(failString);
+            Assert.assertEquals(expectedValue, actualValValue);
         }
     }
 
