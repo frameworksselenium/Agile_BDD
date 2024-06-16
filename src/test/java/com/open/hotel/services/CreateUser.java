@@ -26,13 +26,13 @@ public class CreateUser extends BaseService {
 
     public CreateUser() {
         super();
-        this.EndPoint = prop.getProperty("WMS_PurchaseOrder_Search_EndPoint");
+        this.EndPoint = prop.getProperty("QA_GoRest_CreateUser_EndPoint");
     }
 
     public CreateUser getPayload() {
         try {
             Properties prop = Config.properties;
-            String jsonFilePath = System.getProperty("user.dir") + "//src//test/resources//templates//" + "PurchaseOrderSearch.json";
+            String jsonFilePath = System.getProperty("user.dir") + "//src//test/resources//templates//CreateUser_Request.json";
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(jsonFilePath));
             this.jsonObject = (JSONObject) obj;
@@ -69,6 +69,24 @@ public class CreateUser extends BaseService {
         }
         return this;
     }
+
+    public CreateUser sendPost() {
+        Map<String, String> header = buildHeaderMap();
+        try {
+            RequestSpecification rsp = RestAssured.given().relaxedHTTPSValidation().baseUri(baseURL);
+            response = rsp.headers(header).body(jsonObject).post(EndPoint);
+            int statusCode = response.getStatusCode();
+            if (statusCode != 200) {
+                throw new RuntimeException("Failed : HTTP error code :" + statusCode);
+            }
+            responseJSON = (JSONObject) parser.parse(response.getBody().asString());
+            VariableManager.getInstance().getVariables().setVar("response", response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
 
     public CreateUser showPayload() {
         assertions.getLogger().info("======== Request : " + payload);

@@ -2,6 +2,7 @@ package com.open.hotel.services;
 
 import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.threadVariables.VariableManager;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -51,7 +52,7 @@ public class Payload {
            log.info("XML Request After replacing values : " + val);
        }catch (Exception e){
            System.out.println(e.getMessage());
-           new RuntimeException("Not able to replace values");
+            new RuntimeException("Not able to replace values");
        }
        return val;
    }
