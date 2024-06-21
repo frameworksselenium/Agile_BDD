@@ -38,7 +38,7 @@ public class BrowserStackMobileBrowserDriverFactory {
         try {
             switch (Mobile_Application_Type) {
 
-                case "Mobile_Android_Web":
+                case "Android":
                     caps = new MutableCapabilities();
                     HashMap<String, Object> browserstackOptions = new HashMap<String, Object>();
                     browserstackOptions.put("browserName", "chrome");
@@ -56,7 +56,7 @@ public class BrowserStackMobileBrowserDriverFactory {
                     }
                     break;
 
-                case "Mobile_ISO_Web":
+                case "ISO":
                     caps = new MutableCapabilities();
                     HashMap<String, Object> browserstackOptions1 = new HashMap<String, Object>();
                     browserstackOptions1.put("browserName", "safari");

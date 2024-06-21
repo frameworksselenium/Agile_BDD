@@ -30,7 +30,7 @@ public class SauceLabsMobileBrowserDriverFactory {
         try {
             switch (Mobile_Application_Type) {
 
-                case "Mobile_Android_Web":
+                case "Android":
                     caps = new MutableCapabilities();
                     caps.setCapability("platformName", "Android");
                     caps.setCapability("browserName", "Chrome");
@@ -48,7 +48,7 @@ public class SauceLabsMobileBrowserDriverFactory {
                     }
                     break;
 
-                case "Mobile_ISO_Web":
+                case "ISO":
                     caps = new MutableCapabilities();
                     caps.setCapability("platformName", "iOS");
                     caps.setCapability("browserName", "Safari");

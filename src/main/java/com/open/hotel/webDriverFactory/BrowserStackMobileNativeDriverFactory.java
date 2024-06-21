@@ -37,7 +37,7 @@ public class BrowserStackMobileNativeDriverFactory {
         URL url = null;
         try {
             switch (Mobile_Application_Type) {
-                case "Mobile_Android_Native":
+                case "Android":
                     String filePath1 = System.getProperty("user.dir") + "/src/test/resources/apps/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
                     String custID1 = new File(filePath1).getName().replaceAll(".app| .ipa| .apk", "");
 
@@ -58,7 +58,7 @@ public class BrowserStackMobileNativeDriverFactory {
 
                     break;
 
-                case "Mobile_IOS_Native":
+                case "IOS":
                     String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa";
                     String custID = new File(filePath).getName().replaceAll(".app| .ipa| .apk", "");
 

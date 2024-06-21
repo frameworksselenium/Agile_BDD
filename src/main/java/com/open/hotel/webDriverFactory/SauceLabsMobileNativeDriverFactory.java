@@ -29,7 +29,7 @@ public class SauceLabsMobileNativeDriverFactory {
         URL url = null;
         try {
             switch (Mobile_Application_Type) {
-                case "Mobile_Android_Native":
+                case "Android":
                     caps = new MutableCapabilities();
                     caps.setCapability("platformName", "Android");
                     caps.setCapability("appium:app", "storage:filename=Android.SauceLabs.Mobile.Sample.app.2.7.1.apk");  // The filename of the mobile app
@@ -42,7 +42,7 @@ public class SauceLabsMobileNativeDriverFactory {
                     caps.setCapability("sauce:options", sauceOptions);
                     driver = new AndroidDriver(new URL(RemoteURL), caps);
                     break;
-                case "Mobile_IOS_Native":
+                case "IOS":
                     caps = new MutableCapabilities();
                     caps.setCapability("platformName", "iOS");
                     caps.setCapability("appium:app", "storage:filename=iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa");  // The filename of the mobile app
