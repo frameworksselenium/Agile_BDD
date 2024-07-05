@@ -2,7 +2,6 @@ package com.open.hotel.stepdefinitions.mobile.saucelabs;
 
 import com.open.hotel.pages.mobile.saucelabs.MobileLogin;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 
 public class MobileLoginDefinition {
 	

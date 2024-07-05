@@ -16,7 +16,7 @@ public final class Security {
 	public Security(){}
 
 	public static void main(String[] args){
-		String password = "India@123";
+		String password = "";
 		Security security = new Security();
 		String encryptPasswordValue = security.encryptPassword(password);
 		System.out.println("Encrypt Password: " + encryptPasswordValue);

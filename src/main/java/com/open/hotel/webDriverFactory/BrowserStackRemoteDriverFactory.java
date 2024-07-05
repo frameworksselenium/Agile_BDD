@@ -9,8 +9,6 @@ import org.openqa.selenium.safari.SafariOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BrowserStackRemoteDriverFactory {
     private static BrowserStackRemoteDriverFactory instance = new BrowserStackRemoteDriverFactory();

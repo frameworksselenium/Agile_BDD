@@ -7,7 +7,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 
 public class SauceLabsMobileBrowserDriverFactory {
 

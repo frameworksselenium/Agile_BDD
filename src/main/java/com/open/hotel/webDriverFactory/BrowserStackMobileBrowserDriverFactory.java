@@ -1,22 +1,13 @@
 package com.open.hotel.webDriverFactory;
 
 import com.open.hotel.config.Config;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import java.io.File;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-
-import io.restassured.response.Response;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import static io.restassured.RestAssured.given;
 
 public class BrowserStackMobileBrowserDriverFactory {
 
