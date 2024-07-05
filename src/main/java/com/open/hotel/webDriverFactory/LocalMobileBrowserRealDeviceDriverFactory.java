@@ -5,21 +5,10 @@ import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.threadVariables.VariableManager;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LocalMobileBrowserRealDeviceDriverFactory {
 
