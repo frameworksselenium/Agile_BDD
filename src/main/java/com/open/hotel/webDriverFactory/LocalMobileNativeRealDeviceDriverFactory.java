@@ -52,18 +52,17 @@ public class LocalMobileNativeRealDeviceDriverFactory {
                     break;
                 case "IOS":
                     String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/iOS.Simulator.SauceLabs.Mobile.Sample.app.2.7.1.app";
-
-                    XCUITestOptions xcuiTestOptions = new XCUITestOptions();
-                    xcuiTestOptions.setDeviceName("iPhone 15 Pro Max")
-                            .setPlatformVersion("17.0")
-                            .setPlatformName("iOS")
-                            .setAutomationName("XCUITest")
-                            //.setNoReset(true)
-                            .setApp(filePath);
-                            //.setBundleId("com.saucelabs.SwagLabsMobileApp"); //if u do not want ot install every time we can provide bundleId if already install app
-                    driver = new IOSDriver(new URL(RemoteURL), xcuiTestOptions);
+                    caps = new MutableCapabilities();
+                    caps.setCapability("appium:platformName", "iOS");
+                    caps.setCapability("appium:deviceName", "iPhone 15 Pro");
+                    caps.setCapability("appium:automationName", "XCUITest");
+                    caps.setCapability("appium:udid", "00008130-000E05AE11E8001C");
+                    caps.setCapability("appium:xcodeOrgId", "396BX93R4W");
+                    caps.setCapability("appium:xcodesigninId", "iPhone Developer");
+                    caps.setCapability("appium:updateWDABundleId", "com.facebook02.WebDriverAgentLib");
+                    caps.setCapability("appium:bundleId", "com.dollartree.consumer");
+                    driver = new IOSDriver(new URL(RemoteURL), caps);
                     break;
-                default:
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex);

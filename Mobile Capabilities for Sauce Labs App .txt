@@ -1,0 +1,78 @@
+Android
+
+1. Simulator no installation Working
+{
+  "appium:deviceName": "emulator-5554",
+  "appium:automationName": "UiAutomator2",
+  "appium:platformName": "android",
+  "appium:appPackage": "com.swaglabsmobileapp",
+  "appium:appActivity": "com.swaglabsmobileapp.MainActivity"
+}
+
+2. Simulator with installation working
+{
+  "appium:deviceName": "emulator-5554",
+  "appium:automationName": "UiAutomator2",
+  "appium:platformName": "android",
+  "appium:app": "/Users/krishnareddymanubolu/Documents/WorkSpace/Agile_BDD/src/test/resources/apps/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk",
+  "appium:appPackage": "com.swaglabsmobileapp",
+  "appium:appActivity": "com.swaglabsmobileapp.MainActivity"
+}
+
+3. Real Device with installation working
+{
+  "appium:deviceName": "emulator-5554",
+  "appium:automationName": "UiAutomator2",
+  "appium:platformName": "android",
+  "appium:app": "/Users/krishnareddymanubolu/Documents/WorkSpace/Agile_BDD/src/test/resources/apps/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk",
+  "appium:appPackage": "com.swaglabsmobileapp",
+  "appium:appActivity": "com.swaglabsmobileapp.MainActivity"
+}
+
+4. Real Device no installation Working
+{
+  "appium:deviceName": "emulator-5554",
+  "appium:automationName": "UiAutomator2",
+  "appium:platformName": "android",
+  "appium:appPackage": "com.swaglabsmobileapp",
+  "appium:appActivity": "com.swaglabsmobileapp.MainActivity"
+}
+
+
+
+IOS
+
+1. Simulator with Installation Working
+{
+  "appium:deviceName": "iPhone 15 Pro Max",
+  "appium:platformName": "iOS",
+  "appium:platformVersion": "17.0",
+  "appium:automationName": "XCUITest",
+  "appium:app": "/Users/krishnareddymanubolu/Documents/WorkSpace/Agile_BDD/src/test/resources/apps/iOS.Simulator.SauceLabs.Mobile.Sample.app.2.7.1.app"
+}
+  
+
+2. iPhone Simulator no Installation Working
+{
+  "appium:deviceName": "iPhone 15 Pro Max",
+  "appium:platformName": "iOS",
+  "appium:platformVersion": "17.0",
+  "appium:automationName": "XCUITest",
+  "appium:bundleId": "com.swaglabsmobileapp",
+}
+
+3. Real Device with no Installation working
+{
+  "appium:platformName": "iOS",
+  "appium:deviceName": "iPhone 15 Pro",
+  "appium:udid": "",
+  "appium:xcodeOrgId": "396BX93R4W",
+  "appium:automationName": "XCUITest",
+  "appium:xcodesigninId": "iPhone Developer",
+  "appium:updateWDABundleId": "com.facebook02.WebDriverAgentLib",
+  "appium:bundleId": "com.dollartree.consumer"
+}
+
+
+4. Real Device with installation not working
+

@@ -2,16 +2,18 @@ package com.open.hotel.webDriverFactory;
 
 import com.open.hotel.config.Config;
 import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.mobileutils.AppiumUtils;
 import com.open.hotel.threadVariables.VariableManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 public class LocalMobileNativeSimulatorDriverFactory {
 
@@ -28,39 +30,37 @@ public class LocalMobileNativeSimulatorDriverFactory {
     }
 
     public WebDriver createNewDriver(String RemoteURL) {
-        String Mobile_Application_Type = Config.properties.getProperty("Mobile_Application_Type");
-        AppiumDriver driver = null;
-        MutableCapabilities caps = null;
-        MutableCapabilities sauceOptions = null;
-        URL url = null;
-        try {
-            switch (Mobile_Application_Type) {
-                case "Android":
-                    String filePath1 = System.getProperty("user.dir") + "/src/test/resources/apps/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
+        String mobileApplicationType = Config.properties.getProperty("Mobile_Application_Type");
+        String mobileExecution = Config.properties.getProperty("MobileExecution");
+        String applicationName = Config.properties.getProperty("ApplicationName");
 
+        Map<String, List<Map<String, String>>> data = AppiumUtils.readDataFromJson();
+        Map<String, String>  configData = AppiumUtils.readElementFromMap(data, mobileApplicationType, mobileExecution, applicationName).get(0);
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/" + configData.get("appfilename");
+        AppiumDriver driver = null;
+        try {
+            switch (mobileApplicationType) {
+                case "Android":
                     UiAutomator2Options uiAutomator2Options = new UiAutomator2Options();
                     uiAutomator2Options.setDeviceName("emulator-5554")
-                            //.setPlatformVersion("13.0")
                             .setPlatformName("android")
-                            .setApp(filePath1)
-                            .setAutomationName("UiAutomator2");
-                            //.setAppPackage("com.swaglabsmobileapp") //if app already installed we no need to give below capabilities
-                            //.setAppActivity("com.swaglabsmobileapp.MainActivity");
+                            .setApp(filePath)
+                            .setAutomationName("UiAutomator2")
+                            .setNoReset(true)
+                            .setAppPackage(configData.get("packagename")) //if app already installed we no need to give below capabilities
+                            .setAppActivity(configData.get("activityname"));
                     driver = new AndroidDriver(new URL(RemoteURL), uiAutomator2Options);
                     System.out.println("AndroidDriver is set");
-
                     break;
                 case "IOS":
-                    String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/iOS.Simulator.SauceLabs.Mobile.Sample.app.2.7.1.app";
-
                     XCUITestOptions xcuiTestOptions = new XCUITestOptions();
                     xcuiTestOptions.setDeviceName("iPhone 15 Pro Max")
-                            .setPlatformVersion("17.0")
                             .setPlatformName("iOS")
+                            .setPlatformVersion("17.0")
                             .setAutomationName("XCUITest")
                             //.setNoReset(true)
                             .setApp(filePath);
-                            //.setBundleId("com.saucelabs.SwagLabsMobileApp"); //if u do not want ot install every time we can provide bundleId if already install app
+                            //.setBundleId(configData.get("bundleId")); //if u do not want ot install every time we can provide bundleId if already install app
                     driver = new IOSDriver(new URL(RemoteURL), xcuiTestOptions);
                     break;
                 default:

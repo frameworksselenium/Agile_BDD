@@ -3,6 +3,7 @@ package com.open.hotel.webDriverFactory;
 import com.open.hotel.config.Config;
 import com.open.hotel.logger.LoggerClass;
 import com.open.hotel.threadVariables.VariableManager;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,9 +11,12 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,76 +35,73 @@ public class LocalMobileBrowserRealDeviceDriverFactory {
         return instance;
     }
 
-    public WebDriver createNewDriver(String browser) {
+    public WebDriver createNewDriver(String browser, String RemoteURL) {
+        String Mobile_Application_Type = Config.properties.getProperty("Mobile_Application_Type");
         WebDriver driver = null;
-        if (browser.toUpperCase().contains("CH")) {
-            String downloadFolderPath = System.getProperty("user.dir") + "//target//DownloadFiles";
-            Config.createFolder(downloadFolderPath);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String dateAndTimeStamp = String.valueOf(timestamp.getTime());
-            String downloadFileFolder = downloadFolderPath + "_" + dateAndTimeStamp + "_" + Thread.currentThread().getId();
-            Config.createFolder(downloadFileFolder);
-            VariableManager.getInstance().getVariables().setVar("downloadFileFolder", downloadFileFolder);
-
-            // Use File.separator as it will work on any OS
-            Map<String, Object> prefs = new HashMap<String, Object>();
-            prefs.put("download.prompt_for_download", false);
-            prefs.put("download.directory_upgrade", true);
-            prefs.put("profile.default_content_settings.popups", 0);
-            prefs.put("profile.default_content_setting_values.automatic_downloads",1);
-            prefs.put("download.default_directory", downloadFileFolder);
-
-            ChromeOptions browserOptions = new ChromeOptions();
-            browserOptions.setBinary("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
-            //browserOptions.setExperimentalOption("prefs", prefs);
-            //browserOptions.setPlatformName(PlatformName);
-           // browserOptions.addArguments("--remote-allow-origins=*");
-            //browserOptions.setBrowserVersion("latest");
-            //WebDriverManager.chromedriver().setup();
-            try {
-                driver = new ChromeDriver(browserOptions);
-                //driver = new ChromeDriver();
-                driver.manage().window().maximize();
-            } catch (Exception e) {
-                log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
-                throw new RuntimeException(e);
+        URL url = null;
+        MutableCapabilities caps = null;
+        try {
+            switch (Mobile_Application_Type) {
+                case "Android":
+                    caps = new MutableCapabilities();
+                    caps.setCapability("platformName", "Android");
+                    caps.setCapability("appium:deviceName", "Samsung Galaxy S9");
+                    caps.setCapability("appium:automationName", "UiAutomator2");
+                    caps.setCapability("build", "1");
+                    caps.setCapability("name", "My Test");
+                    switch (browser) {
+                        case "CH":
+                            caps.setCapability("browserName", "Chrome");
+                            break;
+                        case "FF":
+                            caps.setCapability("browserName", "Firefox");
+                            break;
+                        case "ED":
+                            caps.setCapability("browserName", "Edge");
+                            break;
+                        case "SF":
+                            caps.setCapability("browserName", "Safari");
+                            break;
+                    }
+                    try {
+                        url = new URL(RemoteURL);
+                        driver = new RemoteWebDriver(url, caps);
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case "ISO":
+                    caps = new MutableCapabilities();
+                    caps.setCapability("platformName", "iOS");
+                    caps.setCapability("appium:deviceName", "iPhone 12");
+                    caps.setCapability("appium:platformVersion", "16");
+                    caps.setCapability("appium:automationName", "XCUITest");
+                    caps.setCapability("build", "1");
+                    caps.setCapability("name", "MyTest");
+                    switch (browser) {
+                        case "CH":
+                            caps.setCapability("browserName", "Chrome");
+                            break;
+                        case "FF":
+                            caps.setCapability("browserName", "Firefox");
+                            break;
+                        case "ED":
+                            caps.setCapability("browserName", "Edge");
+                            break;
+                        case "SF":
+                            caps.setCapability("browserName", "Safari");
+                            break;
+                    }
+                    try {
+                        url = new URL(RemoteURL);
+                        driver = new RemoteWebDriver(url, caps);
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
             }
-        }
-        if (browser.toUpperCase().contains("FF")) {
-            FirefoxOptions browserOptions = new FirefoxOptions();
-            browserOptions.setPlatformName("windows");
-            browserOptions.setBrowserVersion("latest");
-            try {
-                driver = new FirefoxDriver();
-                driver.manage().window().maximize();
-            } catch (Exception e) {
-                log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }
-        if (browser.toUpperCase().contains("ED")) {
-            EdgeOptions browserOptions = new EdgeOptions();
-            browserOptions.setPlatformName("windows");
-            browserOptions.setBrowserVersion("latest");
-            try {
-                driver = new EdgeDriver();
-                driver.manage().window().maximize();
-            } catch (Exception e) {
-                log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }
-        if (browser.toUpperCase().contains("SF")) {
-            SafariOptions browserOptions = new SafariOptions();
-            browserOptions.setPlatformName("windows");
-            browserOptions.setBrowserVersion("latest");
-            try {
-                driver = new SafariDriver();
-                driver.manage().window().maximize();
-            } catch (Exception e) {
-                log.info("Thread ID:'" + Thread.currentThread().getId() + "' 'FAIL' " + e.getMessage());
-                throw new RuntimeException(e);
-            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
         return driver;
     }

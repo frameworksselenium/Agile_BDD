@@ -4,8 +4,12 @@ import com.open.hotel.config.Config;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
+
+import java.io.File;
 import java.net.URL;
 
 public class SauceLabsMobileNativeDriverFactory {
@@ -28,6 +32,16 @@ public class SauceLabsMobileNativeDriverFactory {
         MutableCapabilities sauceOptions = null;
         URL url = null;
         try {
+            String userName = "your_sauce_labs_username";
+            String accessKey = "your_sauce_labs_access_key";
+            String filePath = "path_to_your_file";
+            String fileName = new File(filePath).getName();
+
+            Response response = RestAssured.given()
+                    .auth().preemptive().basic(userName, accessKey)
+                    .multiPart("file", new File(filePath))
+                    .when().post("https://saucelabs.com/rest/v1/storage/" + userName + "/" + fileName + "?overwrite=true");
+
             switch (Mobile_Application_Type) {
                 case "Android":
                     caps = new MutableCapabilities();

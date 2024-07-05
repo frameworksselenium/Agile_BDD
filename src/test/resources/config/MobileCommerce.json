@@ -1,0 +1,52 @@
+{
+  "Android": [
+    {
+      "type": "emulator",
+      "appname": "eCommerce",
+      "packagename": "com.androidsample.generalstore",
+      "activityname": "com.androidsample.generalstore.MainActivity",
+      "appfilename": "General-Store.apk"
+    },
+    {
+      "type": "emulator",
+      "appname": "saucelabs",
+      "packagename": "com.swaglabsmobileapp",
+      "activityname": "com.swaglabsmobileapp.MainActivity",
+      "appfilename": "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk"
+    },
+    {
+      "type": "",
+      "appname": "",
+      "packagename": "",
+      "activityname": "",
+      "appfilename": ""
+    }
+  ],
+  "IOS": [
+    {
+      "type": "simulator",
+      "appname": "UIKitCatalog",
+      "bundleId": "com.example.apple-samplecode.UIKitCatalog",
+      "appfilename": "UIKitCatalog.app"
+    },
+    {
+      "type": "simulator",
+      "appname": "saucelabs",
+      "bundleId2": "com.swaglabsmobileapp",
+      "bundleId": "com.saucelabs.mydemoapp.rn",
+      "appfilename": "iOS.Simulator.SauceLabs.Mobile.Sample.app.2.7.1.app"
+    },
+    {
+      "type": "realdevice",
+      "appname": "eCommerce",
+      "bundleId": "com.androidsample.generalstore",
+      "appfilename": ""
+    },
+    {
+      "type": "cloud",
+      "appname": "eCommerce",
+      "bundleId": "com.androidsample.generalstore",
+      "appfilename": ""
+    }
+  ]
+}
