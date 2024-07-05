@@ -56,7 +56,7 @@ public class LocalMobileNativeRealDeviceDriverFactory {
                     caps.setCapability("appium:platformName", "iOS");
                     caps.setCapability("appium:deviceName", "iPhone 15 Pro");
                     caps.setCapability("appium:automationName", "XCUITest");
-                    caps.setCapability("appium:udid", "00008130-000E05AE11E8001C");
+                    caps.setCapability("appium:udid", "");
                     caps.setCapability("appium:xcodeOrgId", "396BX93R4W");
                     caps.setCapability("appium:xcodesigninId", "iPhone Developer");
                     caps.setCapability("appium:updateWDABundleId", "com.facebook02.WebDriverAgentLib");
