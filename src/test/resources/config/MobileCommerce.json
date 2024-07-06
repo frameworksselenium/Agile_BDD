@@ -3,6 +3,7 @@
     {
       "type": "emulator",
       "appname": "eCommerce",
+      "devicename": "emulator-5554",
       "packagename": "com.androidsample.generalstore",
       "activityname": "com.androidsample.generalstore.MainActivity",
       "appfilename": "General-Store.apk"
@@ -10,16 +11,18 @@
     {
       "type": "emulator",
       "appname": "saucelabs",
+      "devicename": "emulator-5554",
       "packagename": "com.swaglabsmobileapp",
       "activityname": "com.swaglabsmobileapp.MainActivity",
       "appfilename": "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk"
     },
     {
-      "type": "",
-      "appname": "",
-      "packagename": "",
-      "activityname": "",
-      "appfilename": ""
+      "type": "realdevice",
+      "appname": "saucelabs",
+      "devicename": "ZY22H2TXV5",
+      "packagename": "com.swaglabsmobileapp",
+      "activityname": "com.swaglabsmobileapp.MainActivity",
+      "appfilename": "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk"
     }
   ],
   "IOS": [
@@ -38,15 +41,27 @@
     },
     {
       "type": "realdevice",
-      "appname": "eCommerce",
-      "bundleId": "com.androidsample.generalstore",
-      "appfilename": ""
+      "appname": "saucelabs",
+      "devicename": "iPhone 15 Pro Max",
+      "udid": "00008130-000E05AE11E8001C",
+      "xcodeOrgId": "396BX93R4W",
+      "xcodesigninId": "iPhone Developer",
+      "updateWDABundleId": "com.facebook02.WebDriverAgentLib",
+      "bundleId": "com.saucelabs.mydemoapp.rn",
+      "appfilename": "iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa",
+      "comment": "this combination not working ios real device with saucelabs app"
     },
     {
-      "type": "cloud",
-      "appname": "eCommerce",
-      "bundleId": "com.androidsample.generalstore",
-      "appfilename": ""
+      "type": "realdevice",
+      "appname": "dollartree",
+      "devicename": "iPhone 15 Pro Max",
+      "udid": "00008130-000E05AE11E8001C",
+      "xcodeOrgId": "396BX93R4W",
+      "xcodesigninId": "iPhone Developer",
+      "updateWDABundleId": "com.facebook02.WebDriverAgentLib",
+      "bundleId": "com.dollartree.consumer",
+      "appfilename": "",
+      "comment": "with installing app we can able to run the test on real device, so installing app manually in real device and run test cases"
     }
   ]
 }

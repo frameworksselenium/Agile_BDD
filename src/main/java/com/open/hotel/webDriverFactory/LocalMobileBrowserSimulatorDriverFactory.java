@@ -2,7 +2,9 @@ package com.open.hotel.webDriverFactory;
 
 import com.open.hotel.config.Config;
 import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.mobileutils.AppiumUtils;
 import com.open.hotel.threadVariables.VariableManager;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -35,7 +37,12 @@ public class LocalMobileBrowserSimulatorDriverFactory {
         return instance;
     }
 
-    public WebDriver createNewDriver(String browser, String RemoteURL) {
+    public WebDriver createNewDriver(String browser, String RemoteURL)  {
+        AppiumUtils appiumUtils = new AppiumUtils();
+        if(!appiumUtils.checkIfAppiumServerIsRunnning(4723)) {
+            AppiumDriverLocalService service = appiumUtils.startAppiumServer(Config.properties.getProperty("AppiumServerIP"), Integer.parseInt(Config.properties.getProperty("AppiumServerPort")));
+            VariableManager.getInstance().getVariables().setVar("service", service);
+        }
         String Mobile_Application_Type = Config.properties.getProperty("Mobile_Application_Type");
         WebDriver driver = null;
         URL url = null;

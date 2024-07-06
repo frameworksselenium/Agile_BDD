@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -36,7 +37,6 @@ public class AppiumUtils {
 
     org.apache.log4j.Logger log = LoggerClass.getThreadLogger("Thread" + Thread.currentThread().getName(),
             VariableManager.getInstance().getVariables().getVar("testCaseID").toString());
-    ;
 
     public AppiumUtils() {
         this.scenario = (Scenario) VariableManager.getInstance().getVariables().getVar("scenario");
@@ -123,4 +123,18 @@ public class AppiumUtils {
         }
     }
 
+    public boolean checkIfAppiumServerIsRunnning(int port) {
+        boolean isAppiumServerRunning = false;
+        ServerSocket socket;
+        try {
+            socket = new ServerSocket(port);
+            socket.close();
+        } catch (IOException e) {
+            System.out.println("1");
+            isAppiumServerRunning = true;
+        } finally {
+            socket = null;
+        }
+        return isAppiumServerRunning;
+    }
 }

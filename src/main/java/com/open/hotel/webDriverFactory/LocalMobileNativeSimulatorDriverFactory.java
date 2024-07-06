@@ -9,6 +9,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
@@ -30,6 +31,11 @@ public class LocalMobileNativeSimulatorDriverFactory {
     }
 
     public WebDriver createNewDriver(String RemoteURL) {
+        AppiumUtils appiumUtils = new AppiumUtils();
+        if(!appiumUtils.checkIfAppiumServerIsRunnning(4723)) {
+            AppiumDriverLocalService service = appiumUtils.startAppiumServer(Config.properties.getProperty("AppiumServerIP"), Integer.parseInt(Config.properties.getProperty("AppiumServerPort")));
+            VariableManager.getInstance().getVariables().setVar("service", service);
+        }
         String mobileApplicationType = Config.properties.getProperty("Mobile_Application_Type");
         String mobileExecution = Config.properties.getProperty("MobileExecution");
         String applicationName = Config.properties.getProperty("ApplicationName");
@@ -42,7 +48,7 @@ public class LocalMobileNativeSimulatorDriverFactory {
             switch (mobileApplicationType) {
                 case "Android":
                     UiAutomator2Options uiAutomator2Options = new UiAutomator2Options();
-                    uiAutomator2Options.setDeviceName("emulator-5554")
+                    uiAutomator2Options.setDeviceName(configData.get("devicename"))
                             .setPlatformName("android")
                             .setApp(filePath)
                             .setAutomationName("UiAutomator2")
@@ -54,7 +60,7 @@ public class LocalMobileNativeSimulatorDriverFactory {
                     break;
                 case "IOS":
                     XCUITestOptions xcuiTestOptions = new XCUITestOptions();
-                    xcuiTestOptions.setDeviceName("iPhone 15 Pro Max")
+                    xcuiTestOptions.setDeviceName(configData.get("devicename"))
                             .setPlatformName("iOS")
                             .setPlatformVersion("17.0")
                             .setAutomationName("XCUITest")

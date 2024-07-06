@@ -2,15 +2,19 @@ package com.open.hotel.webDriverFactory;
 
 import com.open.hotel.config.Config;
 import com.open.hotel.logger.LoggerClass;
+import com.open.hotel.mobileutils.AppiumUtils;
 import com.open.hotel.threadVariables.VariableManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 public class LocalMobileNativeRealDeviceDriverFactory {
 
@@ -26,41 +30,52 @@ public class LocalMobileNativeRealDeviceDriverFactory {
         return instance;
     }
 
-    public WebDriver createNewDriver(String RemoteURL) {
-        String Mobile_Application_Type = Config.properties.getProperty("Mobile_Application_Type");
-        AppiumDriver driver = null;
-        MutableCapabilities caps = null;
-        MutableCapabilities sauceOptions = null;
-        URL url = null;
-        try {
-            switch (Mobile_Application_Type) {
-                case "Android":
-                    String filePath1 = System.getProperty("user.dir") + "/src/test/resources/apps/Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
+    public WebDriver createNewDriver(String RemoteURL)  {
 
+        AppiumDriver driver = null;
+
+        AppiumUtils appiumUtils = new AppiumUtils();
+        if(!appiumUtils.checkIfAppiumServerIsRunnning(4723)) {
+            AppiumDriverLocalService service = appiumUtils.startAppiumServer(Config.properties.getProperty("AppiumServerIP"), Integer.parseInt(Config.properties.getProperty("AppiumServerPort")));
+            VariableManager.getInstance().getVariables().setVar("service", service);
+        }
+        String mobileApplicationType = Config.properties.getProperty("Mobile_Application_Type");
+        String mobileExecution = Config.properties.getProperty("MobileExecution");
+        String applicationName = Config.properties.getProperty("ApplicationName");
+
+        Map<String, List<Map<String, String>>> data = AppiumUtils.readDataFromJson();
+        Map<String, String>  configData = AppiumUtils.readElementFromMap(data, mobileApplicationType, mobileExecution, applicationName).get(0);
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/" + configData.get("appfilename");
+
+        try {
+            switch (mobileApplicationType) {
+                case "Android":
                     UiAutomator2Options uiAutomator2Options = new UiAutomator2Options();
-                    uiAutomator2Options.setDeviceName("ZY22H2TXV5")
-                            //.setPlatformVersion("13.0")
+                    uiAutomator2Options.setDeviceName(configData.get("devicename"))
                             .setPlatformName("android")
-                            //.setApp(filePath1)
+                            .setApp(filePath)
                             .setAutomationName("UiAutomator2")
-                            .setAppPackage("com.swaglabsmobileapp") //if app already installed we no need to give below capabilities
-                            .setAppActivity("com.swaglabsmobileapp.MainActivity");
+                            .setNoReset(true)
+                            .setAppPackage(configData.get("packagename")) //if app already installed we no need to give below capabilities
+                            .setAppActivity(configData.get("activityname"));
                     driver = new AndroidDriver(new URL(RemoteURL), uiAutomator2Options);
                     System.out.println("AndroidDriver is set");
-
                     break;
                 case "IOS":
-                    String filePath = System.getProperty("user.dir") + "/src/test/resources/apps/iOS.Simulator.SauceLabs.Mobile.Sample.app.2.7.1.app";
-                    caps = new MutableCapabilities();
-                    caps.setCapability("appium:platformName", "iOS");
-                    caps.setCapability("appium:deviceName", "iPhone 15 Pro");
-                    caps.setCapability("appium:automationName", "XCUITest");
-                    caps.setCapability("appium:udid", "");
-                    caps.setCapability("appium:xcodeOrgId", "396BX93R4W");
-                    caps.setCapability("appium:xcodesigninId", "iPhone Developer");
-                    caps.setCapability("appium:updateWDABundleId", "com.facebook02.WebDriverAgentLib");
-                    caps.setCapability("appium:bundleId", "com.dollartree.consumer");
-                    driver = new IOSDriver(new URL(RemoteURL), caps);
+                    MutableCapabilities capabilities = new MutableCapabilities();
+                    capabilities.setCapability("deviceName", configData.get("devicename"));
+                    capabilities.setCapability("platformName", "iOS");
+                    capabilities.setCapability("platformVersion", "17.0");
+                    capabilities.setCapability("automationName", "XCUITest");
+                    //not able to install app using app capability so install app manually in real device and  use bundleId
+                    //capabilities.setCapability("app", filePath);
+                    capabilities.setCapability("appium:bundleId", configData.get("bundleId"));
+                    //directly can not set below capabilities using xcuitest option so need to use MutableCapabilities
+                    capabilities.setCapability("udid", configData.get("udid"));
+                    capabilities.setCapability("xcodeOrgId", configData.get("xcodeOrgId"));
+                    capabilities.setCapability("xcodeSigningId", configData.get("xcodeSigningId"));
+
+                    driver = new IOSDriver(new URL(RemoteURL), capabilities);
                     break;
             }
         } catch (Exception ex) {
