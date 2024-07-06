@@ -1,0 +1,84 @@
+Appium
+
+
+Install Nodejs — download and install nodejs 12 and above
+
+
+Install Appium - command
+
+sudo npm install -g appium@next
+
+
+Install drivers
+
+iOS driver
+Appium driver install xcuitest
+
+Android driver
+appium driver install uiautomator2
+
+To know what r the drivers installed
+Appium driver list
+Appium driver list—update
+
+Install doctor
+
+Nom install -g appium-doctor
+Appium-doctor —version
+
+Need to install below software’s
+https://appium.readthedocs.io/en/latest/en/drivers/ios-xcuitest-real-devices/
+brew install libimobiledevice
+brew install ios-deploy
+
+Note :—
+After running script , when web driver agent installing
+0. Go to iPhone->Settings->Privacy & Security->Developer Mode on->Restart iPhone
+1. Go tot iPhone->setting->General->VPN&Dvice Management->Apple Development->Click Trust
+
+
+This command will display connected android device names
+Adb devices
+
+This command will display connected iOS device names
+
+
+
+
+App
+/Users/krishnareddymanubolu/Desktop/myprod/build/Release-iphonesimulator/myprod.app
+
+
+command to find webdriveragent project in mac
+
+find . -name “appium-webdriveragent"
+
+
+Web driver Xcode project path
+./.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent
+
+Command to open Xcode project from terminal
+Open ./.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent
+
+
+
+
+Android Real Device Settings
+1. To enable develop option: Go to Setting->About->7 time tab on Build Number
+2. To Enable USB Debugging : go to Setting->search for “USB Debugging” and enable
+
+
+To find bundle id for iOS which r in App Store or play store
+
+Type in google “dollartree app bundle in in apple store” and go to apple store and copy id from url and replace id in below url and copy entire url and past in browser and one notepad file will be downloaded and open file and search bundle id.
+
+Https://itunes.apple.com/lookup?id=1478129419&country=us
+
+
+Install apps in android emulator
+We have to choose the emulator which is having the play store and build the emulator and open and emulator and login with gmail and install
+
+Install Apps in IOS Simulator
+We can not install App Store apps in iPhone simulator
+
+
