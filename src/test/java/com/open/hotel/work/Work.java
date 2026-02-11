@@ -40,6 +40,6 @@ public class Work {
             link.click();
             driver.navigate().back();
         }
-        //driver.quit();
+        driver.quit();
     }
 }
